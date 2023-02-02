@@ -1,0 +1,9 @@
+{
+  "users": 100000,
+  "roles": 5,
+  "resources": 100000,
+  "actions": 3,
+  "queries": 1000,
+  "max_capabilities_per_role": 10,
+  "max_roles_per_user": 10
+}

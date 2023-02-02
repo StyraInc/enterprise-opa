@@ -1,1 +1,4 @@
 !*.tar.gz
+bundle/*
+queries
+*.html
