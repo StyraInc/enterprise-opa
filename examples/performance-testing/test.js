@@ -1,11 +1,7 @@
 import { check } from 'k6';
-import exec from 'k6/execution';
 import http from 'k6/http';
 import { Trend, Gauge } from 'k6/metrics';
 import { SharedArray } from 'k6/data';
-
-import { textSummary } from "https://jslib.k6.io/k6-summary/0.0.2/index.js";
-import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/2.4.0/dist/bundle.js";
 
 const endpoint = `http://${__ENV.HOST}:8181/v1/data/rbac/allow?metrics`;
 const endpointMetrics = `http://${__ENV.HOST}:8181/metrics`;
@@ -42,10 +38,22 @@ export default function () {
 }
 
 export function handleSummary(data) {
-  const reportRef = `${__ENV.TOOL}-${__ENV.TEST_SIZE}MB-${exec.test.options.scenarios.default.vus}users-${exec.test.options.scenarios.default.duration}`;
-  const reportName = `report-${reportRef}.html`
-
+  const rps = data.metrics.iterations.values.rate;
+  const handlerTimeMedian = data.metrics.timer_server_handler_ns.values.med/1000000
+  const handlerTimep95 = data.metrics.timer_server_handler_ns.values["p(95)"]/1000000
+  const heapSizeMax = data.metrics.heap_inuse_bytes.values.max/1024/1024/1024
+  const output = `
+Results:
+  requests per second (mean):   ${round(rps)}
+  server request time (median): ${round(handlerTimeMedian)}ms
+  server request time (p95):    ${round(handlerTimep95)}ms
+  server heap size (max):       ${round(heapSizeMax)}GB
+`
   return {
-    [reportName]: htmlReport(data, {title: reportRef})
+    stdout: output.trim(),
   };
+}
+
+function round(num) {
+  return +(Math.round(num + "e+2")  + "e-2");
 }
