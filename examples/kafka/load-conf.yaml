@@ -1,0 +1,9 @@
+plugins:
+  data:
+    kafka.messages:
+      type: kafka
+      brokerURLs:
+        - broker:29092
+      topics:
+        - users
+      rego_transform: "data.e2e.transform"
