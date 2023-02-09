@@ -39,14 +39,10 @@ export default function () {
 
 export function handleSummary(data) {
   const rps = data.metrics.iterations.values.rate;
-  const handlerTimeMedian = data.metrics.timer_server_handler_ns.values.med/1000000
-  const handlerTimep95 = data.metrics.timer_server_handler_ns.values["p(95)"]/1000000
   const heapSizeMax = data.metrics.heap_inuse_bytes.values.max/1024/1024/1024
   const output = `
 Results:
   requests per second (mean):   ${round(rps)}
-  server request time (median): ${round(handlerTimeMedian)}ms
-  server request time (p95):    ${round(handlerTimep95)}ms
   server heap size (max):       ${round(heapSizeMax)}GB
 `
   return {
