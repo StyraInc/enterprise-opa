@@ -18,7 +18,7 @@ This repository provides:
 
 For Styra Load documentation, see [docs.styra.com](https://docs.styra.com/load)
 
-## Getting started
+## Getting Started
 
 Styra Load can run either containerized with Docker, as a standalone executable.
 
@@ -30,11 +30,34 @@ Download the Load container image:
 docker pull ghcr.io/styrainc/load:latest
 ```
 
-Or grab the standalone executable:
+Or grab the latest version of Styra Load from the [releases](https://github.com/StyraInc/load/releases/) page.
 
-1. Grab the latest version of Styra Load from the [releases](https://github.com/StyraInc/load/releases/) page
-1. Untar the archive (unzip on Windows)
-1. (Optionally) verify the checksum for the downloaded binary
+**MacOS (Apple Silicon)**
+```shell
+$ curl -L -o load "https://github.com/StyraInc/load/releases/download/v0.49.0-2/load_Darwin_arm64"
+$ xattr -d com.apple.quarantine load
+$ chmod +x load
+```
+
+**MacOS (x86_64)**
+```shell
+$ curl -L -o load "https://github.com/StyraInc/load/releases/download/v0.49.0-2/load_Darwin_x86_64"
+$ xattr -d com.apple.quarantine load
+$ chmod +x load
+```
+
+**Linux (x86_64)**
+```shell
+$ curl -L -o load "https://github.com/StyraInc/load/releases/download/v0.49.0-2/load_Linux_x86_64"
+$ chmod +x load
+```
+
+**Windows (x86_64)**
+```shell
+> curl.exe -L -o load "https://github.com/StyraInc/load/releases/download/v0.49.0-2/load_Windows_x86_64.exe"
+```
+
+Checksums for all binaries may optionally be retrieved from [here](https://github.com/StyraInc/load/releases/download/v0.49.0-2/checksums.txt).
 
 ### Obtaining a License
 
@@ -43,7 +66,7 @@ Running Styra Load requires a valid license key. To evaluate Styra Load, a free 
 The license key can either be provided the `load` command via an environment variable:
 
 ```shell
-export STYRA_LOAD_LICENSE_KEY=<license key here>
+$ export STYRA_LOAD_LICENSE_KEY=<license key here>
 ```
 
 Or via the filesystem using the `--license-key` flag:
