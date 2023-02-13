@@ -12,27 +12,29 @@ Styra Load is designed to offer:
 
 This repository provides:
 
-* The Styra Load [binaries](https://github.com/StyraInc/load/releases/)
 * The Styra Load [Docker images](https://github.com/StyraInc/load/pkgs/container/load)
+* The Styra Load [binaries](https://github.com/StyraInc/load/releases/)
 * Example code and deployment blueprints for Styra Load
 
 For Styra Load documentation, see [docs.styra.com](https://docs.styra.com/load)
 
 ## Getting started
 
-Styra Load can run either as a standalone executable, or containerized with Docker.
+Styra Load can run either containerized with Docker, as a standalone executable.
 
 ### Download Styra Load
 
-1. Grab the latest version of Styra Load from the [releases](https://github.com/StyraInc/load/releases/) page
-1. Untar the archive (unzip on Windows)
-1. (Optionally) verify the checksum for the downloaded binary
-
-**Or** download the Load container image:
+Download the Load container image:
 
 ```shell
 docker pull ghcr.io/styrainc/load:latest
 ```
+
+Or grab the standalone executable:
+
+1. Grab the latest version of Styra Load from the [releases](https://github.com/StyraInc/load/releases/) page
+1. Untar the archive (unzip on Windows)
+1. (Optionally) verify the checksum for the downloaded binary
 
 ### Obtaining a License
 
@@ -50,22 +52,22 @@ Or via the filesystem using the `--license-key` flag:
 load run --server --license-key <path to file containing license key here> ...
 ```
 
-### Running Load
-
-Run the Styra `load` binary same as you would run `opa`:
-
-```shell
-load run --server ...
-```
-
-```shell
-load eval ...
-```
-
 ### Running Load with Docker
 
 ```shell
 docker run -v $(pwd):/load -w /load ghcr.io/styrainc/load:latest run --config-file /load/load-conf.yml
+```
+
+### Running the Load Binary
+
+Run the Styra `load` binary same as you would run `opa`:
+
+```shell
+load run --server --license-key  ...
+```
+
+```shell
+load eval --data policy.rego --input input.json ...
 ```
 
 ## Examples
