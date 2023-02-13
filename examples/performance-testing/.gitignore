@@ -2,3 +2,4 @@
 bundle/*
 queries
 *.html
+*.log
