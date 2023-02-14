@@ -54,7 +54,7 @@ $ chmod +x load
 
 **Windows (x86_64)**
 ```shell
-> curl.exe -L -o load "https://github.com/StyraInc/load/releases/latest/download/load_Windows_x86_64.exe"
+> curl.exe -L -o load.exe "https://github.com/StyraInc/load/releases/latest/download/load_Windows_x86_64.exe"
 ```
 
 Checksums for all binaries may optionally be retrieved from [here](https://github.com/StyraInc/load/releases/latest/download/checksums.txt).
