@@ -1,4 +1,6 @@
-# ![logo](./logo/logo.png) Styra Load
+# Styra Load
+
+![logo](./logo/logo.png)
 
 Built by the creators and maintainers of [Open Policy Agent](https://www.openpolicyagent.org/) (OPA), Styra Load is the only enterprise-grade authorization engine built to provide resource-efficient performance for data-heavy workloads while connecting natively to your existing data sources.
 
@@ -24,13 +26,13 @@ Styra Load can run either containerized with Docker, as a standalone executable.
 
 ### ⬇️ Download Styra Load
 
-Download the Load container image:
-
+**MacOS and Linux**
 ```shell
-docker pull ghcr.io/styrainc/load:latest
+brew install styrainc/packages/load
 ```
 
-Or grab the latest version of Styra Load from the [releases](https://github.com/StyraInc/load/releases/) page.
+<details>
+  <summary><strong>Manual download options</strong></summary>
 
 **MacOS (Apple Silicon)**
 ```shell
@@ -52,9 +54,20 @@ curl -L -o load "https://github.com/StyraInc/load/releases/latest/download/load_
 chmod +x load
 ```
 
-**Windows (x86_64)**
+**Windows**
 ```shell
 > curl.exe -L -o load.exe "https://github.com/StyraInc/load/releases/latest/download/load_Windows_x86_64.exe"
+```
+
+See all versions, and checksum files, at the Styra Load [releases](https://github.com/StyraInc/load/releases/) page.
+
+</details><br/>
+
+
+Alternatively, download the Styra Load Docker image:
+
+```shell
+docker pull ghcr.io/styrainc/load:latest
 ```
 
 Checksums for all binaries may optionally be retrieved from [here](https://github.com/StyraInc/load/releases/latest/download/checksums.txt).
