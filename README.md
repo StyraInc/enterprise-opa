@@ -34,30 +34,30 @@ Or grab the latest version of Styra Load from the [releases](https://github.com/
 
 **MacOS (Apple Silicon)**
 ```shell
-$ curl -L -o load "https://github.com/StyraInc/load/releases/download/v0.49.0-2/load_Darwin_arm64"
+$ curl -L -o load "https://github.com/StyraInc/load/releases/latest/download/load_Darwin_arm64"
 $ xattr -d com.apple.quarantine load
 $ chmod +x load
 ```
 
 **MacOS (x86_64)**
 ```shell
-$ curl -L -o load "https://github.com/StyraInc/load/releases/download/v0.49.0-2/load_Darwin_x86_64"
+$ curl -L -o load "https://github.com/StyraInc/load/releases/latest/download/load_Darwin_x86_64"
 $ xattr -d com.apple.quarantine load
 $ chmod +x load
 ```
 
 **Linux (x86_64)**
 ```shell
-$ curl -L -o load "https://github.com/StyraInc/load/releases/download/v0.49.0-2/load_Linux_x86_64"
+$ curl -L -o load "https://github.com/StyraInc/load/releases/latest/download/load_Linux_x86_64"
 $ chmod +x load
 ```
 
 **Windows (x86_64)**
 ```shell
-> curl.exe -L -o load "https://github.com/StyraInc/load/releases/download/v0.49.0-2/load_Windows_x86_64.exe"
+> curl.exe -L -o load "https://github.com/StyraInc/load/releases/latest/download/load_Windows_x86_64.exe"
 ```
 
-Checksums for all binaries may optionally be retrieved from [here](https://github.com/StyraInc/load/releases/download/v0.49.0-2/checksums.txt).
+Checksums for all binaries may optionally be retrieved from [here](https://github.com/StyraInc/load/releases/latest/download/checksums.txt).
 
 ### Obtaining a License
 
@@ -98,4 +98,5 @@ load eval --data policy.rego --input input.json ...
 This repository additionally contains companion examples and blueprints from the Styra Load [documentation](https://docs.styra.com/load).
 
 - [Performance testing](/examples/performance-testing/)
+- Kubernetes [deployment example](/examples/kubernetes/)
 - Streaming data from [Apache Kafka](/examples/kafka/)

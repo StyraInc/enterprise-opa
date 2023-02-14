@@ -1,0 +1,111 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: load
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: styra-load-license
+  namespace: load
+type: Opaque
+stringData:
+  license: changeme
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: styra-load-config
+  namespace: load
+data:
+  config.yaml: |
+    decision_logs:
+      console: true
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: load
+  namespace: load
+  name: load
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: load
+  template:
+    metadata:
+      labels:
+        app: load
+      name: load
+    spec:
+      containers:
+      - name: load
+        image: ghcr.io/styrainc/load:latest
+        args:
+        - "run"
+        - "--server"
+        - "--addr=0.0.0.0:8181"
+        - "--config-file=/etc/config/config.yaml"
+        env:
+        - name: STYRA_LOAD_LICENSE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: styra-load-license
+              key: license
+        volumeMounts:
+        - name: config
+          mountPath: /etc/config
+        readinessProbe:
+          httpGet:
+            path: /health
+            scheme: HTTP
+            port: 8181
+          initialDelaySeconds: 3
+          periodSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /health
+            scheme: HTTP
+            port: 8181
+          initialDelaySeconds: 3
+          periodSeconds: 5
+      volumes:
+      - name: config
+        configMap:
+          name: styra-load-config
+          items:
+          - key: "config.yaml"
+            path: "config.yaml"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: load
+  namespace: load
+spec:
+  selector:
+    app: load
+  ports:
+  - port: 8181
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: load
+  namespace: load
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - http:
+      paths:
+      - pathType: Prefix
+        path: /load(/|$)(.*)
+        backend:
+          service:
+            name: load
+            port:
+              number: 8181
