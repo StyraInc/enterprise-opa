@@ -1,4 +1,4 @@
-# Styra Load
+# ![logo](./logo/logo.png) Styra Load
 
 Built by the creators and maintainers of [Open Policy Agent](https://www.openpolicyagent.org/) (OPA), Styra Load is the only enterprise-grade authorization engine built to provide resource-efficient performance for data-heavy workloads while connecting natively to your existing data sources.
 
@@ -8,7 +8,7 @@ Styra Load is designed to offer:
 - Increase integration speed: By offering the ability to natively connect to existing data sources without custom code, Styra Load allows teams to reduce development costs and get into production quickly.
 - Minimize risk with powerful analysis: Extending the industry’s only impact analysis tool, Styra Load allows policy validation early and throughout the policy lifecycle, shrinking deployment failure, and costly issues before enforcement. (Coming soon)
 
-## About This Repository
+## 📖 About This Repository
 
 This repository provides:
 
@@ -18,11 +18,11 @@ This repository provides:
 
 For Styra Load documentation, see [docs.styra.com](https://docs.styra.com/load)
 
-## Getting Started
+## 🏃 Getting Started
 
 Styra Load can run either containerized with Docker, as a standalone executable.
 
-### Download Styra Load
+### ⬇️ Download Styra Load
 
 Download the Load container image:
 
@@ -59,7 +59,7 @@ chmod +x load
 
 Checksums for all binaries may optionally be retrieved from [here](https://github.com/StyraInc/load/releases/latest/download/checksums.txt).
 
-### Obtaining a License
+### 🔑 Obtaining a License
 
 Running Styra Load requires a valid license key. To evaluate Styra Load, a free 14 day trial license may be obtained from [here](https://www.styra.com/free-trial-14/).
 
@@ -75,13 +75,13 @@ Or via the filesystem using the `--license-key` flag:
 load run --server --license-key <path to file containing license key here> ...
 ```
 
-### Running Load with Docker
+### 🐳 Running Load with Docker
 
 ```shell
 docker run -v $(pwd):/load -w /load ghcr.io/styrainc/load:latest run --config-file /load/load-conf.yml
 ```
 
-### Running the Load Binary
+### ⚡ Running the Load Binary
 
 Run the Styra `load` binary same as you would run `opa`:
 
@@ -93,7 +93,7 @@ load run --server --license-key  ...
 load eval --data policy.rego --input input.json ...
 ```
 
-## Examples
+## 🖋️ Examples
 
 This repository additionally contains companion examples and blueprints from the Styra Load [documentation](https://docs.styra.com/load).
 
