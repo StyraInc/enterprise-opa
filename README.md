@@ -34,22 +34,22 @@ Or grab the latest version of Styra Load from the [releases](https://github.com/
 
 **MacOS (Apple Silicon)**
 ```shell
-$ curl -L -o load "https://github.com/StyraInc/load/releases/latest/download/load_Darwin_arm64"
-$ xattr -d com.apple.quarantine load
-$ chmod +x load
+curl -L -o load "https://github.com/StyraInc/load/releases/latest/download/load_Darwin_arm64"
+xattr -d com.apple.quarantine load
+chmod +x load
 ```
 
 **MacOS (x86_64)**
 ```shell
-$ curl -L -o load "https://github.com/StyraInc/load/releases/latest/download/load_Darwin_x86_64"
-$ xattr -d com.apple.quarantine load
-$ chmod +x load
+curl -L -o load "https://github.com/StyraInc/load/releases/latest/download/load_Darwin_x86_64"
+xattr -d com.apple.quarantine load
+chmod +x load
 ```
 
 **Linux (x86_64)**
 ```shell
-$ curl -L -o load "https://github.com/StyraInc/load/releases/latest/download/load_Linux_x86_64"
-$ chmod +x load
+curl -L -o load "https://github.com/StyraInc/load/releases/latest/download/load_Linux_x86_64"
+chmod +x load
 ```
 
 **Windows (x86_64)**
