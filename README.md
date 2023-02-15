@@ -56,7 +56,7 @@ chmod +x load
 
 **Windows**
 ```shell
-> curl.exe -L -o load.exe "https://github.com/StyraInc/load/releases/latest/download/load_Windows_x86_64.exe"
+curl.exe -L -o load.exe "https://github.com/StyraInc/load/releases/latest/download/load_Windows_x86_64.exe"
 ```
 
 See all versions, and checksum files, at the Styra Load [releases](https://github.com/StyraInc/load/releases/) page.
@@ -79,7 +79,7 @@ Running Styra Load requires a valid license key. To evaluate Styra Load, a free 
 The license key can either be provided the `load` command via an environment variable:
 
 ```shell
-$ export STYRA_LOAD_LICENSE_KEY=<license key here>
+export STYRA_LOAD_LICENSE_KEY=<license key here>
 ```
 
 Or via the filesystem using the `--license-key` flag:
