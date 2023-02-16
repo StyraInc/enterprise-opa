@@ -22,7 +22,7 @@ For Styra Load documentation, see [docs.styra.com](https://docs.styra.com/load)
 
 ## 🏃 Getting Started
 
-Styra Load can run either containerized with Docker, as a standalone executable.
+Styra Load can run either containerized with Docker, or as a standalone executable.
 
 ### ⬇️ Download Styra Load
 
