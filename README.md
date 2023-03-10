@@ -1,6 +1,6 @@
 # Styra Load
 
-![logo](./logo/logo.png)
+![Styra](./content/img/logo.png)
 
 Built by the creators and maintainers of [Open Policy Agent](https://www.openpolicyagent.org/) (OPA), Styra Load is the only enterprise-grade authorization engine built to provide resource-efficient performance for data-heavy workloads while connecting natively to your existing data sources.
 
@@ -9,6 +9,29 @@ Styra Load is designed to offer:
 - Reduced costs of data-heavy authorization: Styra Load allows you to reduce OPA’s memory overhead by 10x and gain the ability to get 40% more CPU throughput at the policy decision point.
 - Increase integration speed: By offering the ability to natively connect to existing data sources without custom code, Styra Load allows teams to reduce development costs and get into production quickly.
 - Minimize risk with powerful analysis: Extending the industry’s only impact analysis tool, Styra Load allows policy validation early and throughout the policy lifecycle, shrinking deployment failure, and costly issues before enforcement. (Coming soon)
+
+## 👋 Hello World!
+
+![Hello World](./content/img/helloworld.gif)
+
+<details>
+  <summary><strong>Try it out!</strong></summary>
+
+1. `brew install styrainc/packages/load`
+2. `export STYRA_LOAD_LICENSE_KEY=<your license key>`
+3. `load run -s https://dl.styra.com/load/bundle-load-400.tar.gz`
+4. `curl 'http://localhost:8181/metrics/alloc_bytes?pretty=true'`
+
+To compare with OPA:
+
+1. `opa run -s -a localhost:8282 https://dl.styra.com/load/bundle-opa-400.tar.gz`
+2. `curl 'http://localhost:8282/metrics/alloc_bytes?pretty=true'`
+
+Note: both Styra Load and OPA will show "peak" memory usage if queried just after
+launch, so waiting a few minutes before checking the metrics will provide numbers
+closer to real-world use.
+
+</details><br/>
 
 ## 📖 About This Repository
 
