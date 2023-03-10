@@ -113,3 +113,7 @@ This repository additionally contains companion examples and blueprints from the
 - [Performance testing](/examples/performance-testing/)
 - Kubernetes [deployment example](/examples/kubernetes/)
 - Streaming data from [Apache Kafka](/examples/kafka/)
+
+## 🗣️ Community
+
+For questions, discussions and announcements related to Styra products, services and open source projects, please join the Styra community on [Slack](https://join.slack.com/t/styracommunity/shared_invite/zt-1p81qz8g4-t2OLKbvw0J5ibdcNc62~6Q)!
