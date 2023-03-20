@@ -97,7 +97,7 @@ Checksums for all binaries may optionally be retrieved from [here](https://githu
 
 ### 🔑 Obtaining a License
 
-Running Styra Load requires a valid license key. To evaluate Styra Load, a free 14 day trial license may be obtained from [here](https://www.styra.com/free-trial-14/).
+Running Styra Load requires a valid license key. To evaluate Styra Load, a free 14 day trial license may be obtained from [here](https://www.styra.com/free-trial-14/?utm_medium=community_u&utm_source=github).
 
 The license key can either be provided the `load` command via an environment variable:
 
