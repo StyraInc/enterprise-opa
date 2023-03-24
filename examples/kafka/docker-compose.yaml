@@ -24,12 +24,13 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 
   load:
-    image: ghcr.io/styrainc/load:0.49.0-0
+    image: ghcr.io/styrainc/load:latest
     ports:
       - "8181:8181"
     command:
       - "run"
       - "--server"
+      - "--addr=0.0.0.0:8181"
       - "--log-level=debug"
       - "--config-file=/data/load-conf.yaml"
       - "/data/policy/transform.rego"
