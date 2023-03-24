@@ -98,3 +98,10 @@ $ load liactl record --bundle bundle.tar.gz --duration 5s --sample-rate 0.5 --gr
 │ authz/allow  │ {"method":"POST","path":"\/data\/alice","username":"alice"}     │   2 │             63798.5 │           63798.5 │          52612 │          74985 │  15820.100015486627 │        250275564.5 │               96072 │               96072 │            94624 │            97520 │  2047.7812383162416 │            4193408 │
 └──────────────┴─────────────────────────────────────────────────────────────────┴─────┴─────────────────────┴───────────────────┴────────────────┴────────────────┴─────────────────────┴────────────────────┴─────────────────────┴─────────────────────┴──────────────────┴──────────────────┴─────────────────────┴────────────────────┘
 ```
+
+## Things not mentioned
+
+- There's CSV and JSON outputs via `--output` and `--format` for further data analysis!
+- You can pipe the JSON output into `load eval -I` and have your own policy to be used for
+  CI/CD pipelines to automatically determine if the impact associated with a policy change
+  is acceptable.
