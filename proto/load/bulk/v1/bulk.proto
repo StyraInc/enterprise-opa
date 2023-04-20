@@ -1,0 +1,136 @@
+// Copyright 2023 Styra, Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     https://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto3";
+package load.bulk.v1;
+
+import "load/data/v1/data.proto";
+import "load/policy/v1/policy.proto";
+import "google/protobuf/any.proto";
+
+// BulkRWRequest can contain any combination of read/write operations on
+// policies and data.
+message BulkRWRequest {
+  // WritePolicyRequest provides a union of possible Policy request types.
+  // This allows creating arbitrary sequences of policy store operations.
+  message WritePolicyRequest {
+    oneof req {
+      load.policy.v1.CreatePolicyRequest create = 1;
+      load.policy.v1.UpdatePolicyRequest update = 2;
+      load.policy.v1.DeletePolicyRequest delete = 3;
+    }
+  }
+
+  // WriteDataRequest provides a union of possible Data request types.
+  // This allows creating arbitrary sequences of data store operations.
+  message WriteDataRequest {
+    oneof req {
+      load.data.v1.CreateDataRequest create = 1;
+      load.data.v1.UpdateDataRequest update = 2;
+      load.data.v1.DeleteDataRequest delete = 3;
+    }
+  }
+
+  // ReadPolicyRequest is currently a simple wrapper over the GetPolicy
+  // request type.
+  message ReadPolicyRequest {
+    load.policy.v1.GetPolicyRequest req = 1;
+  }
+
+  // ReadDataRequest is currently a simple wrapper over the GetData
+  // request type.
+  message ReadDataRequest {
+    load.data.v1.GetDataRequest req = 1;
+  }
+
+  // writes_policy provides a sequence of WritePolicy operations to apply.
+  repeated WritePolicyRequest writes_policy = 2;
+  // writes_data provides a sequence of WriteData operations to apply.
+  repeated WriteDataRequest writes_data = 3;
+
+  // reads_policy provides a sequence of ReadPolicy operations to apply.
+  repeated ReadPolicyRequest reads_policy = 4;
+  // reads_data provides a sequence of ReadData operations to apply.
+  repeated ReadDataRequest reads_data = 5;
+}
+
+// BulkRWResponse contains lists of the appropriate response types for each
+// operation in the BulkRWRequest.
+message BulkRWResponse {
+  // WritePolicyResponse provides a union of possible response types,
+  // mirroring the union of possible request types.
+  message WritePolicyResponse {
+    oneof resp {
+      load.policy.v1.CreatePolicyResponse create = 1;
+      load.policy.v1.UpdatePolicyResponse update = 2;
+      load.policy.v1.DeletePolicyResponse delete = 3;
+    }
+  }
+
+  // WriteDataResponse provides a union of possible response types,
+  // mirroring the union of possible request types.
+  message WriteDataResponse {
+    oneof resp {
+      load.data.v1.CreateDataResponse create = 1;
+      load.data.v1.UpdateDataResponse update = 2;
+      load.data.v1.DeleteDataResponse delete = 3;
+    }
+  }
+
+  // ReadPolicyResponse provides fields for a response or list of errors.
+  // The two should be mutually exclusive.
+  message ReadPolicyResponse {
+    load.policy.v1.GetPolicyResponse resp = 1;
+    ErrorList errors = 2;
+  }
+
+  // ReadDataResponse provides fields for a response or list of errors. The
+  // two should be mutually exclusive.
+  message ReadDataResponse {
+    load.data.v1.GetDataResponse resp = 1;
+    ErrorList errors = 2;
+  }
+
+  // writes_policy provides a sequence of WritePolicy results.
+  repeated WritePolicyResponse writes_policy = 2;
+  // writes_data provides a sequence of WriteData results.
+  repeated WriteDataResponse writes_data = 3;
+
+  // reads_policy provides a sequence of ReadPolicy results or errors.
+  repeated ReadPolicyResponse reads_policy = 4;
+  // reads_data provides a sequence of ReadData results or errors.
+  repeated ReadDataResponse reads_data = 5;
+}
+
+// Context-dependent error messages.
+message ErrorList {
+  // The errors in the list.
+  repeated google.protobuf.Any errors = 1;
+}
+
+// BulkService is an API for specifying batches of read/write operations.
+service BulkService {
+  // BulkRW specifies a fixed-structure, bulk read/write operation.
+  //
+  // WritePolicy and WriteData operations are executed sequentially, aborting
+  // the entire gRPC call if any operations fail.
+  //
+  // The ReadPolicy and ReadData operations are then executed in parallel,
+  // but will report errors inline in their responses, instead of aborting
+  // the entire gRPC call.
+  //
+  // Warning: The same performance hazards described for the Policy API
+  // apply for PolicyWrite operations here as well.
+  rpc BulkRW(BulkRWRequest) returns (BulkRWResponse);
+}
