@@ -22,6 +22,6 @@ To lint the protobuf files, try running `buf lint` in this folder.
 
 ## License
 
-The contents of this folder (Buf files and protobuf definitions) are released under the Apache v2.0 license][apache-v2] license.
+The contents of this folder (Buf files and protobuf definitions) are released under the [Apache v2.0 license][apache-v2] license.
 
    [apache-v2]: https://www.apache.org/licenses/LICENSE-2.0.html
