@@ -6,6 +6,7 @@ You can install dependencies and build the demo program with the following `make
 
 ```
 make install
+make grpc-gen-go  # Runs `buf generate` in the top-level `proto/` folder.
 make build
 ```
 

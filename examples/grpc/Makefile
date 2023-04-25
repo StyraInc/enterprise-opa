@@ -1,3 +1,5 @@
+SHELL=/bin/env bash
+
 build: grpcpush
 
 .PHONY: grpcpush
@@ -40,6 +42,12 @@ benchmark:
 .PHONY: install
 install:
 	go install ./...
+
+.PHONY: grpc-gen-go
+grpc-gen-go:
+	pushd ../../proto && \
+	buf generate && \
+	popd
 
 .PHONY: clean
 clean:
