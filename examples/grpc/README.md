@@ -108,43 +108,5 @@ k:     vmallocUsed, 	v: 64.75390625 Mb
 k:           wired, 	v: 0 b
 k:       writeBack, 	v: 0 b
 k:    writeBackTmp, 	v: 0 b
-/example/vmem_summary
-k:          active, 	v: 9.177375793457031 Gb
-k:       available, 	v: 22.00560760498047 Gb
-k:         buffers, 	v: 2.6309547424316406 Gb
-k:          cached, 	v: 17.325542449951172 Gb
-k:     commitLimit, 	v: 16.570178985595703 Gb
-k:     committedAS, 	v: 19.837387084960938 Gb
-k:           dirty, 	v: 4.47265625 Mb
-k:            free, 	v: 3.967052459716797 Gb
-k:        highFree, 	v: 0 b
-k:       highTotal, 	v: 0 b
-k:    hugePageSize, 	v: 2 Mb
-k:   hugePagesFree, 	v: 0 b
-k:   hugePagesRsvd, 	v: 0 b
-k:   hugePagesSurp, 	v: 0 b
-k:  hugePagesTotal, 	v: 0 b
-k:        inactive, 	v: 14.58868408203125 Gb
-k:         laundry, 	v: 0 b
-k:         lowFree, 	v: 0 b
-k:        lowTotal, 	v: 0 b
-k:          mapped, 	v: 1.1810226440429688 Gb
-k:      pageTables, 	v: 73.875 Mb
-k:          shared, 	v: 1.4795074462890625 Gb
-k:            slab, 	v: 1.8739395141601562 Gb
-k:    sreclaimable, 	v: 1.5899429321289062 Gb
-k:      sunreclaim, 	v: 290.8125 Mb
-k:      swapCached, 	v: 0 b
-k:        swapFree, 	v: 975.99609375 Mb
-k:       swapTotal, 	v: 975.99609375 Mb
-k:           total, 	v: 31.234119415283203 Gb
-k:            used, 	v: 7.310569763183594 Gb
-k:     usedPercent, 	v: 23.405718.3
-k:    vmallocChunk, 	v: 0 b
-k:    vmallocTotal, 	v: 32767.999999046326 Gb
-k:     vmallocUsed, 	v: 64.72265625 Mb
-k:           wired, 	v: 0 b
-k:       writeBack, 	v: 0 b
-k:    writeBackTmp, 	v: 0 b
 ...
 ```

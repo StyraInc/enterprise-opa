@@ -24,18 +24,18 @@ func pushMemStats(ctx context.Context, client datav1.DataServiceClient, mem *mem
 	// type with the correct k/v pairs.
 	var temp map[string]interface{}
 	if err := json.Unmarshal([]byte(mem.String()), &temp); err != nil {
-		return fmt.Errorf("could not unmarshal mem.VirtualMemoryStat struct.")
+		return fmt.Errorf("could not unmarshal mem.VirtualMemoryStat struct")
 	}
 	pbStruct, err := structpb.NewStruct(temp)
 	if err != nil {
-		return fmt.Errorf("could not convert map[string]interface{} to protobuf struct format.")
+		return fmt.Errorf("could not convert map[string]interface{} to protobuf struct format")
 	}
 	v := structpb.NewStructValue(pbStruct)
 	// Create new Rego Object at path `data.psutil.memory` (URL: `/psutil/memory`).
 	// The protobuf Struct's k/v pairs will map directly to the created
 	// Rego Object's k/v pairs.
 	if _, err := client.CreateData(ctx, &datav1.CreateDataRequest{Data: &datav1.DataDocument{Path: "/psutil/memory", Document: v}}); err != nil {
-		return fmt.Errorf("CreateData failed: %v\n", err)
+		return fmt.Errorf("CreateData failed: %v", err)
 	}
 	return nil
 }
@@ -44,13 +44,14 @@ func main() {
 	ctx := context.Background()
 	addr := os.Getenv("ADDR")
 	if addr == "" {
-		log.Fatal("ADDR environment variable required (ex: ':8000')")
+		fmt.Println("No ADDR environment variable found, defaulting to 'localhost:9090'")
+		addr = "localhost:9090"
 	}
 
 	// Connect to the Load instance.
 	conn, err := grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
-		log.Fatalf("failed to dial the Load server: %v\n", err)
+		log.Fatalf("failed to dial the Load server: %v", err)
 	}
 	defer conn.Close()
 	clientData := datav1.NewDataServiceClient(conn)
@@ -63,7 +64,7 @@ func main() {
 	}
 	_, err = clientPolicy.CreatePolicy(ctx, &policyv1.CreatePolicyRequest{Policy: &policyv1.Policy{Path: "/example", Text: string(policy)}})
 	if err != nil {
-		log.Fatalf("CreatePolicy failed: %v\n", err)
+		log.Fatalf("CreatePolicy failed: %v", err)
 	}
 
 	// Query the service until the user hits Ctrl-C.
@@ -77,7 +78,7 @@ func main() {
 		// Get the re-formatted results by launching a query over gRPC.
 		resp, err := clientData.GetData(ctx, &datav1.GetDataRequest{Path: "/example/vmem_summary"})
 		if err != nil {
-			log.Fatalf("GetData failed: %v\n", err)
+			log.Fatalf("GetData failed: %v", err)
 		}
 		resultDoc := resp.GetResult()
 		path := resultDoc.GetPath()
