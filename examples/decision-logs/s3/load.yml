@@ -1,0 +1,10 @@
+plugins:
+  load_decision_logger:
+    output:
+    - type: s3
+      endpoint: http://s3:9000
+      region: placeholder
+      force_path: true
+      bucket: logs
+      access_key_id: minioadmin
+      access_secret: minioadmin
