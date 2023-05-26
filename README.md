@@ -139,4 +139,4 @@ This repository additionally contains companion examples and blueprints from the
 
 ## 🗣️ Community
 
-For questions, discussions and announcements related to Styra products, services and open source projects, please join the Styra community on [Slack](https://communityinviter.com/apps/styracommunity/signup)!
+For questions, discussions and announcements related to Styra products, services and open source projects, please join the Styra community on [Slack](https://join.slack.com/t/styracommunity/shared_invite/zt-1vzb60ikx-F6ht2yi5uI0c_P_1z3r1sw)!
