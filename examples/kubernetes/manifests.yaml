@@ -7,7 +7,7 @@ metadata:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: styra-load-license
+  name: styra-enterprise-opa-license
   namespace: load
 type: Opaque
 stringData:
@@ -16,7 +16,7 @@ stringData:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: styra-load-config
+  name: styra-enterprise-opa-config
   namespace: load
 data:
   config.yaml: |
@@ -53,7 +53,7 @@ spec:
         - name: STYRA_LOAD_LICENSE_KEY
           valueFrom:
             secretKeyRef:
-              name: styra-load-license
+              name: styra-enterprise-opa-license
               key: license
         volumeMounts:
         - name: config
@@ -75,7 +75,7 @@ spec:
       volumes:
       - name: config
         configMap:
-          name: styra-load-config
+          name: styra-enterprise-opa-config
           items:
           - key: "config.yaml"
             path: "config.yaml"

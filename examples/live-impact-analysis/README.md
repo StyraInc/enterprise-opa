@@ -20,14 +20,14 @@ allow if {
 }
 ```
 
-- `load build next-bundle`: produces `bundle.tar.gz` with the new policy
+- `eopa build next-bundle`: produces `bundle.tar.gz` with the new policy
 
 ## Assess the change against live traffic with LIA
 
 We're cautious first: sample 20% of the traffic, only record differences in results, for 10s:
 
 ```
-$ load liactl record --bundle bundle.tar.gz --duration 10s --sample-rate 0.2
+$ eopa liactl record --bundle bundle.tar.gz --duration 10s --sample-rate 0.2
   ███████████████████████████████████████████████████████████████████████████ 100%
 ┌───────────────────────────────────────┬────────┬─────────┬─────────┬─────────────────────────────────────────────────────────────────┬──────────────┬───────────┬───────────┐
 │                node_id                │ req_id │ value_a │ value_b │                              input                              │     path     │ eval_ns_a │ eval_ns_b │
@@ -45,7 +45,7 @@ $ load liactl record --bundle bundle.tar.gz --duration 10s --sample-rate 0.2
 Looks like it's all the same. Let's try to sample some more, and group the results:
 
 ```
-$ load liactl record --bundle bundle.tar.gz --duration 5s --sample-rate 0.5 --group
+$ eopa liactl record --bundle bundle.tar.gz --duration 5s --sample-rate 0.5 --group
   ███████████████████████████████████████████████████████████████████████████ 100%
 ┌──────────────┬─────────────────────────────────────────────────────────────────┬───┬─────────────────┬───────────────────┬────────────────┬────────────────┬───────────────────┬────────────────┬───────────────────┬─────────────────────┬──────────────────┬──────────────────┬─────────────────────┬──────────────────┐
 │     path     │                              input                              │ n │ mean_primary_ns │ median_primary_ns │ min_primary_ns │ max_primary_ns │ stddev_primary_ns │ var_primary_ns │ mean_secondary_ns │ median_secondary_ns │ min_secondary_ns │ max_secondary_ns │ stddev_secondary_ns │ var_secondary_ns │
@@ -64,7 +64,7 @@ We can also assess the impact of other results (that are not different) that cam
 the extra rule we've added, by passing `--equals`:
 
 ```
-$ load liactl record --bundle bundle.tar.gz --duration 5s --sample-rate 0.5 --group --equals 
+$ eopa liactl record --bundle bundle.tar.gz --duration 5s --sample-rate 0.5 --group --equals 
   ███████████████████████████████████████████████████████████████████████████ 100%
 ┌──────────────┬─────────────────────────────────────────────────────────────────┬─────┬─────────────────────┬───────────────────┬────────────────┬────────────────┬─────────────────────┬────────────────────┬─────────────────────┬─────────────────────┬──────────────────┬──────────────────┬─────────────────────┬────────────────────┐
 │     path     │                              input                              │  n  │   mean_primary_ns   │ median_primary_ns │ min_primary_ns │ max_primary_ns │  stddev_primary_ns  │   var_primary_ns   │  mean_secondary_ns  │ median_secondary_ns │ min_secondary_ns │ max_secondary_ns │ stddev_secondary_ns │  var_secondary_ns  │
@@ -102,6 +102,6 @@ $ load liactl record --bundle bundle.tar.gz --duration 5s --sample-rate 0.5 --gr
 ## Things not mentioned
 
 - There's CSV and JSON outputs via `--output` and `--format` for further data analysis!
-- You can pipe the JSON output into `load eval -I` and have your own policy to be used for
+- You can pipe the JSON output into `eopa eval -I` and have your own policy to be used for
   CI/CD pipelines to automatically determine if the impact associated with a policy change
   is acceptable.

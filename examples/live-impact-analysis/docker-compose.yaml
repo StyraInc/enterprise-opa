@@ -14,7 +14,7 @@ services:
     - "--server"
     - "--addr=0.0.0.0:8181"
     - "--log-level=debug"
-    - "--config-file=/data/load-conf.yaml"
+    - "--config-file=/data/enterprise-opa-conf.yaml"
     - "/data/policy.rego"
     environment:
       STYRA_LOAD_LICENSE_KEY: ${STYRA_LOAD_LICENSE_KEY}
