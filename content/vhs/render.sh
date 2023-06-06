@@ -27,7 +27,7 @@ cleanup() {
     fi
 }
 
-# Run Styra Load
+# Run Styra Enterprise OPA
 
 cleanup
 
@@ -57,7 +57,7 @@ cleanup
 eopa run -s https://dl.styra.com/enterprise-opa/bundle-enterprise-opa-400.tar.gz &
 opa run -s -a localhost:8282 https://dl.styra.com/enterprise-opa/bundle-opa-400.tar.gz &
 
-# Sleep for 4 minutes in order to read memory metrics from Load/OPA "at rest"
+# Sleep for 4 minutes in order to read memory metrics from Enterprise OPA/OPA "at rest"
 sleep 240
 
 vhs < memory.tape

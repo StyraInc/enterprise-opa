@@ -39,7 +39,7 @@ This repository provides:
 
 * The Styra Enterprise OPA [Docker images](https://github.com/StyraInc/enterprise-opa/pkgs/container/load)
 * The Styra Enterprise OPA [binaries](https://github.com/StyraInc/enterprise-opa/releases/)
-* Example code and deployment blueprints for Styra Load
+* Example code and deployment blueprints for Styra Enterprise OPA
 
 For Styra Enterprise OPA documentation, see [docs.styra.com](https://docs.styra.com/enterprise-opa)
 

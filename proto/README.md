@@ -1,6 +1,6 @@
 # Styra Enterprise OPA gRPC API
 
-This folder contains the definitions of [Protocol Buffers][protobuf] used by [Styra Load][gh-styra-enterprise-opa].
+This folder contains the definitions of [Protocol Buffers][protobuf] used by [Styra Enterprise OPA][gh-styra-enterprise-opa].
 
 We use [Buf][buf] to manage and generate source code from the protocol buffer definitions.
 The protobuf definitions here are a mirror of what we have pushed to the [`buf.build/styra/enterprise-opa`][buf-styra-enterprise-opa] repository in the Buf Registry.
