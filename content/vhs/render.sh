@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Script to "render" the Hello World animated gif, demonstrating
-# the memory savings of Styra Load compared to OPA. This script uses
+# the memory savings of Styra Enterprise OPA compared to OPA. This script uses
 # VHS https://github.com/charmbracelet/vhs to create three different
 # gif files, which are finally concatenated into helloworld.gif
 # The end result is likely going to be slightly different depending on

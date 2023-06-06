@@ -1,4 +1,4 @@
-# Styra Load gRPC API
+# Styra Enterprise OPA gRPC API
 
 This folder contains the definitions of [Protocol Buffers][protobuf] used by [Styra Load][gh-styra-load].
 

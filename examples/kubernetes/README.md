@@ -1,6 +1,6 @@
 # Kubernetes Deployment
 
-Example code for [deployment](https://docs.styra.com/load/installation/deployment) of Styra Load in a Kubernetes cluster.
+Example code for [deployment](https://docs.styra.com/load/installation/deployment) of Styra Enterprise OPA in a Kubernetes cluster.
 
 To run the example code in a local [kind](https://kind.sigs.k8s.io) cluster, follow the steps outlined below.
 
@@ -18,7 +18,7 @@ Next, deploy the resource manifests:
 kubectl apply -f manifests.yaml
 ```
 
-Last, use port-forwarding to verify that Styra Load is up and reachable:
+Last, use port-forwarding to verify that Styra Enterprise OPA is up and reachable:
 
 ```shell
 kubectl -n load port-forward deployment/load 8181

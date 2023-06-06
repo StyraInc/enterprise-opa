@@ -1,14 +1,14 @@
-# Styra Load
+# Styra Enterprise OPA
 
 ![Styra](./content/img/logo.png)
 
-Built by the creators and maintainers of [Open Policy Agent](https://www.openpolicyagent.org/) (OPA), Styra Load is the only enterprise-grade authorization engine built to provide resource-efficient performance for data-heavy workloads while connecting natively to your existing data sources.
+Built by the creators and maintainers of [Open Policy Agent](https://www.openpolicyagent.org/) (OPA), Styra Enterprise OPA is the only enterprise-grade authorization engine built to provide resource-efficient performance for data-heavy workloads while connecting natively to your existing data sources.
 
-Styra Load is designed to offer:
+Styra Enterprise OPA is designed to offer:
 
-- Reduced costs of data-heavy authorization: Styra Load allows you to reduce OPA’s memory overhead by 10x and gain the ability to get 40% more CPU throughput at the policy decision point.
-- Increase integration speed: By offering the ability to natively connect to existing data sources without custom code, Styra Load allows teams to reduce development costs and get into production quickly.
-- Minimize risk with powerful analysis: Extending the industry’s only impact analysis tool, Styra Load allows policy validation early and throughout the policy lifecycle, shrinking deployment failure, and costly issues before enforcement. (Coming soon)
+- Reduced costs of data-heavy authorization: Styra Enterprise OPA allows you to reduce OPA’s memory overhead by 10x and gain the ability to get 40% more CPU throughput at the policy decision point.
+- Increase integration speed: By offering the ability to natively connect to existing data sources without custom code, Styra Enterprise OPA allows teams to reduce development costs and get into production quickly.
+- Minimize risk with powerful analysis: Extending the industry’s only impact analysis tool, Styra Enterprise OPA allows policy validation early and throughout the policy lifecycle, shrinking deployment failure, and costly issues before enforcement.
 
 ## 👋 Hello World!
 
@@ -27,7 +27,7 @@ To compare with OPA:
 1. `opa run -s -a localhost:8282 https://dl.styra.com/load/bundle-opa-400.tar.gz`
 2. `curl 'http://localhost:8282/metrics/alloc_bytes?pretty=true'`
 
-Note: both Styra Load and OPA will show "peak" memory usage if queried just after
+Note: both Styra Enterprise OPA and OPA will show "peak" memory usage if queried just after
 launch, so waiting a few minutes before checking the metrics will provide numbers
 closer to real-world use.
 
@@ -37,15 +37,15 @@ closer to real-world use.
 
 This repository provides:
 
-* The Styra Load [Docker images](https://github.com/StyraInc/load/pkgs/container/load)
-* The Styra Load [binaries](https://github.com/StyraInc/load/releases/)
+* The Styra Enterprise OPA [Docker images](https://github.com/StyraInc/load/pkgs/container/load)
+* The Styra Enterprise OPA [binaries](https://github.com/StyraInc/load/releases/)
 * Example code and deployment blueprints for Styra Load
 
-For Styra Load documentation, see [docs.styra.com](https://docs.styra.com/load)
+For Styra Enterprise OPA documentation, see [docs.styra.com](https://docs.styra.com/load)
 
 ## 🏃 Getting Started
 
-Styra Load can run either containerized with Docker, or as a standalone executable.
+Styra Enterprise OPA can run either containerized with Docker, or as a standalone executable.
 
 ### ⬇️ Download Styra Load
 
@@ -82,12 +82,12 @@ chmod +x load
 curl.exe -L -o load.exe "https://github.com/StyraInc/load/releases/latest/download/load_Windows_x86_64.exe"
 ```
 
-See all versions, and checksum files, at the Styra Load [releases](https://github.com/StyraInc/load/releases/) page.
+See all versions, and checksum files, at the Styra Enterprise OPA [releases](https://github.com/StyraInc/load/releases/) page.
 
 </details><br/>
 
 
-Alternatively, download the Styra Load Docker image:
+Alternatively, download the Styra Enterprise OPA Docker image:
 
 ```shell
 docker pull ghcr.io/styrainc/load:latest
@@ -97,7 +97,7 @@ Checksums for all binaries may optionally be retrieved from [here](https://githu
 
 ### 🔑 Obtaining a License
 
-Running Styra Load requires a valid license key. To evaluate Styra Load, a free 14 day trial license may be obtained from [here](https://www.styra.com/free-trial-14/?utm_medium=community_u&utm_source=github).
+Running Styra Enterprise OPA requires a valid license key. To evaluate Styra Load, a free 14 day trial license may be obtained from [here](https://www.styra.com/free-trial-14/?utm_medium=community_u&utm_source=github).
 
 The license key can either be provided the `load` command via an environment variable:
 
@@ -111,13 +111,13 @@ Or via the filesystem using the `--license-key` flag:
 load run --server --license-key <path to file containing license key here> ...
 ```
 
-### 🐳 Running Load with Docker
+### 🐳 Running Enterprise OPA with Docker
 
 ```shell
 docker run -v $(pwd):/load -w /load ghcr.io/styrainc/load:latest run --config-file /load/load-conf.yml
 ```
 
-### ⚡ Running the Load Binary
+### ⚡ Running the Enterprise OPA Binary
 
 Run the Styra `load` binary same as you would run `opa`:
 
@@ -131,7 +131,7 @@ load eval --data policy.rego --input input.json ...
 
 ## 🖋️ Examples
 
-This repository additionally contains companion examples and blueprints from the Styra Load [documentation](https://docs.styra.com/load).
+This repository additionally contains companion examples and blueprints from the Styra Enterprise OPA [documentation](https://docs.styra.com/load).
 
 - [Performance testing](/examples/performance-testing/)
 - Kubernetes [deployment example](/examples/kubernetes/)

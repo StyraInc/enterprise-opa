@@ -1,4 +1,4 @@
-module github.com/styrainc/load
+module github.com/styrainc/enterprise-opa
 
 go 1.20
 

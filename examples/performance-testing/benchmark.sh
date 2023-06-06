@@ -53,7 +53,7 @@ if [ -z "${STYRA_LOAD_LICENSE_KEY}" ]; then
 fi
 
 echo "OPA bundle: $1"
-echo "Load bundle: $2"
+echo "Enterprise OPA bundle: $2"
 echo "Query list: $3"
 echo ""
 
@@ -75,15 +75,15 @@ opa_pid=""
 
 echo ""
 
-# Load Test
+# Enterprise OPA Test
 nohup load run --server -b "$2" > load.log 2>&1 &
 load_pid="$!"
 
 while [[ "$(curl -X "POST" -d $'{"input": {}}' -s -o /dev/null -w ''%{http_code}'' http://localhost:8181/v1/data/rbac/allow?metrics)" != "200" ]]; do
-  echo "Waiting for Load to start..."
+  echo "Waiting for Enterprise OPA to start..."
   sleep 2
 done
-echo "Running Load test..."
+echo "Running Enterprise OPA test..."
 
 k6 -q run -u 10 -d $TEST_DURATION -e HOST=localhost -e QUERY_FILE="$3" test.js
 echo "" # needed to make sure k6 output is on a new line

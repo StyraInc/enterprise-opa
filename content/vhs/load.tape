@@ -21,14 +21,14 @@ Sleep 200ms
 
 Ctrl+L
 
-Type "# Starting Styra Load with a large (400MB) RBAC bundle"
+Type "# Starting Styra Enterprise OPA with a large (400MB) RBAC bundle"
 Sleep 200ms
 Enter
 Type "load run -s https://dl.styra.com/load/bundle-load-400.tar.gz"
 Sleep 500ms
 Enter
 
-# "Wait for Load to download and activate the bundle"
+# "Wait for Enterprise OPA to download and activate the bundle"
 
 Sleep 3s
 
