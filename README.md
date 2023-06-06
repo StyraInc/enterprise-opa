@@ -41,13 +41,13 @@ This repository provides:
 * The Styra Enterprise OPA [binaries](https://github.com/StyraInc/enterprise-opa/releases/)
 * Example code and deployment blueprints for Styra Load
 
-For Styra Enterprise OPA documentation, see [docs.styra.com](https://docs.styra.com/load)
+For Styra Enterprise OPA documentation, see [docs.styra.com](https://docs.styra.com/enterprise-opa)
 
 ## 🏃 Getting Started
 
 Styra Enterprise OPA can run either containerized with Docker, or as a standalone executable.
 
-### ⬇️ Download Styra Load
+### ⬇️ Download Styra Enterprise OPA
 
 **MacOS and Linux**
 ```shell
@@ -60,26 +60,26 @@ brew install styrainc/packages/enterprise-opa
 **MacOS (Apple Silicon)**
 ```shell
 curl -L -o eopa "https://github.com/StyraInc/enterprise-opa/releases/latest/download/eopa_Darwin_arm64"
-xattr -d com.apple.quarantine load
-chmod +x load
+xattr -d com.apple.quarantine eopa
+chmod +x eopa
 ```
 
 **MacOS (x86_64)**
 ```shell
 curl -L -o eopa "https://github.com/StyraInc/enterprise-opa/releases/latest/download/eopa_Darwin_x86_64"
-xattr -d com.apple.quarantine load
-chmod +x load
+xattr -d com.apple.quarantine eopa
+chmod +x eopa
 ```
 
 **Linux (x86_64)**
 ```shell
 curl -L -o eopa "https://github.com/StyraInc/enterprise-opa/releases/latest/download/eopa_Linux_x86_64"
-chmod +x load
+chmod +x eopa
 ```
 
 **Windows**
 ```shell
-curl.exe -L -o load.exe "https://github.com/StyraInc/enterprise-opa/releases/latest/download/eopa_Windows_x86_64.exe"
+curl.exe -L -o eopa.exe "https://github.com/StyraInc/enterprise-opa/releases/latest/download/eopa_Windows_x86_64.exe"
 ```
 
 See all versions, and checksum files, at the Styra Enterprise OPA [releases](https://github.com/StyraInc/enterprise-opa/releases/) page.
@@ -97,9 +97,9 @@ Checksums for all binaries may optionally be retrieved from [here](https://githu
 
 ### 🔑 Obtaining a License
 
-Running Styra Enterprise OPA requires a valid license key. To evaluate Styra Load, a free 14 day trial license may be obtained from [here](https://www.styra.com/free-trial-14/?utm_medium=community_u&utm_source=github).
+Running Styra Enterprise OPA requires a valid license key. To evaluate Styra Enterprise OPA, a free 14 day trial license may be obtained from [here](https://www.styra.com/free-trial-14/?utm_medium=community_u&utm_source=github).
 
-The license key can either be provided the `load` command via an environment variable:
+The license key can either be provided the `eopa` command via an environment variable:
 
 ```shell
 export STYRA_LOAD_LICENSE_KEY=<license key here>
@@ -119,7 +119,7 @@ docker run -v $(pwd):/enterprise-opa -w /enterprise-opa ghcr.io/styrainc/enterpr
 
 ### ⚡ Running the Enterprise OPA Binary
 
-Run the Styra `load` binary same as you would run `opa`:
+Run the Styra `eopa` binary same as you would run `opa`:
 
 ```shell
 eopa run --server --license-key  ...
@@ -131,7 +131,7 @@ eopa eval --data policy.rego --input input.json ...
 
 ## 🖋️ Examples
 
-This repository additionally contains companion examples and blueprints from the Styra Enterprise OPA [documentation](https://docs.styra.com/load).
+This repository additionally contains companion examples and blueprints from the Styra Enterprise OPA [documentation](https://docs.styra.com/enterprise-opa).
 
 - [Performance testing](/examples/performance-testing/)
 - Kubernetes [deployment example](/examples/kubernetes/)

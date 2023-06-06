@@ -27,7 +27,7 @@ services:
         exit 0;
       "
 
-  load:
+  enterprise-opa:
     image: ghcr.io/styrainc/enterprise-opa:latest
     ports:
     - "8181:8181"
@@ -36,11 +36,11 @@ services:
     - "--server"
     - "--addr=0.0.0.0:8181"
     - "--log-level=debug"
-    - "--config-file=/data/load.yml"
+    - "--config-file=/data/enterprise-opa.yml"
     environment:
       STYRA_LOAD_LICENSE_KEY: ${STYRA_LOAD_LICENSE_KEY}
     volumes:
-    - "./load.yml:/data/load.yml"
+    - "./enterprise-opa.yml:/data/enterprise-opa.yml"
     depends_on:
     - bucket
 

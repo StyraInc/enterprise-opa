@@ -33,7 +33,7 @@ else
     exit 1
 fi
 
-if command -v load>/dev/null 2>&1 ; then
+if command -v eopa>/dev/null 2>&1 ; then
     echo "eopa version: $(eopa version | head -n 1 | cut -d ' ' -f 2)"
 else
     echo "eopa not found"
@@ -76,7 +76,7 @@ opa_pid=""
 echo ""
 
 # Enterprise OPA Test
-nohup eopa run --server -b "$2" > load.log 2>&1 &
+nohup eopa run --server -b "$2" > eopa.log 2>&1 &
 eopa_pid="$!"
 
 while [[ "$(curl -X "POST" -d $'{"input": {}}' -s -o /dev/null -w ''%{http_code}'' http://localhost:8181/v1/data/rbac/allow?metrics)" != "200" ]]; do
@@ -87,7 +87,7 @@ echo "Running Enterprise OPA test..."
 
 k6 -q run -u 10 -d $TEST_DURATION -e HOST=localhost -e QUERY_FILE="$3" test.js
 echo "" # needed to make sure k6 output is on a new line
-echo "Stopping Load..."
+echo "Stopping Enterprise OPA..."
 kill "$eopa_pid"
 eopa_pid=""
 

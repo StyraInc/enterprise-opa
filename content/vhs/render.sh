@@ -11,7 +11,7 @@
 # Prerequisites:
 # `brew install gifsicle`
 # `export STYRA_LOAD_LICENSE_KEY=...``
-# Change the license key in load.tape to a valid one
+# Change the license key in enterprise-opa.tape to a valid one
 
 cleanup() {
     rm -rf .opa
@@ -41,7 +41,7 @@ rm -rf  enterprise-opa.gif \
 
 export HOMEBREW_NO_ENV_HINTS=1
 
-vhs < load.tape
+vhs < enterprise-opa.tape
 
 # Run OPA
 

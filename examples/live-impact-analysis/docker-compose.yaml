@@ -5,7 +5,7 @@ services:
     volumes:
     - "./benthos.yaml:/benthos.yaml"
 
-  load:
+  enterprise-opa:
     image: ghcr.io/styrainc/enterprise-opa:latest
     ports:
     - "8181:8181"

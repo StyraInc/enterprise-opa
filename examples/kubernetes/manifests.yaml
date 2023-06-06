@@ -2,13 +2,13 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: load
+  name: enterprise-opa
 ---
 apiVersion: v1
 kind: Secret
 metadata:
   name: styra-enterprise-opa-license
-  namespace: load
+  namespace: enterprise-opa
 type: Opaque
 stringData:
   license: changeme
@@ -17,7 +17,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: styra-enterprise-opa-config
-  namespace: load
+  namespace: enterprise-opa
 data:
   config.yaml: |
     decision_logs:
@@ -27,22 +27,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: load
-  namespace: load
-  name: load
+    app: enterprise-opa
+  namespace: enterprise-opa
+  name: enterprise-opa
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: load
+      app: enterprise-opa
   template:
     metadata:
       labels:
-        app: load
-      name: load
+        app: enterprise-opa
+      name: enterprise-opa
     spec:
       containers:
-      - name: load
+      - name: enterprise-opa
         image: ghcr.io/styrainc/enterprise-opa:latest
         args:
         - "run"
@@ -83,19 +83,19 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
-  name: load
-  namespace: load
+  name: enterprise-opa
+  namespace: enterprise-opa
 spec:
   selector:
-    app: load
+    app: enterprise-opa
   ports:
   - port: 8181
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: load
-  namespace: load
+  name: enterprise-opa
+  namespace: enterprise-opa
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
@@ -103,9 +103,9 @@ spec:
   - http:
       paths:
       - pathType: Prefix
-        path: /load(/|$)(.*)
+        path: /enterprise-opa(/|$)(.*)
         backend:
           service:
-            name: load
+            name: enterprise-opa
             port:
               number: 8181
