@@ -1,6 +1,6 @@
 # Kubernetes Deployment
 
-Example code for [deployment](https://docs.styra.com/load/installation/deployment) of Styra Enterprise OPA in a Kubernetes cluster.
+Example code for [deployment](https://docs.styra.comenterprise-opa/installation/deployment) of Styra Enterprise OPA in a Kubernetes cluster.
 
 To run the example code in a local [kind](https://kind.sigs.k8s.io) cluster, follow the steps outlined below.
 

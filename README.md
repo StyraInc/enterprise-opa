@@ -19,12 +19,12 @@ Styra Enterprise OPA is designed to offer:
 
 1. `brew install styrainc/packages/load`
 2. `export STYRA_LOAD_LICENSE_KEY=<your license key>`
-3. `load run -s https://dl.styra.com/load/bundle-load-400.tar.gz`
+3. `load run -s https://dl.styra.com/enterprise-opa/bundle-load-400.tar.gz`
 4. `curl 'http://localhost:8181/metrics/alloc_bytes?pretty=true'`
 
 To compare with OPA:
 
-1. `opa run -s -a localhost:8282 https://dl.styra.com/load/bundle-opa-400.tar.gz`
+1. `opa run -s -a localhost:8282 https://dl.styra.com/enterprise-opa/bundle-opa-400.tar.gz`
 2. `curl 'http://localhost:8282/metrics/alloc_bytes?pretty=true'`
 
 Note: both Styra Enterprise OPA and OPA will show "peak" memory usage if queried just after
@@ -37,8 +37,8 @@ closer to real-world use.
 
 This repository provides:
 
-* The Styra Enterprise OPA [Docker images](https://github.com/StyraInc/load/pkgs/container/load)
-* The Styra Enterprise OPA [binaries](https://github.com/StyraInc/load/releases/)
+* The Styra Enterprise OPA [Docker images](https://github.com/StyraInc/enterprise-opa/pkgs/container/load)
+* The Styra Enterprise OPA [binaries](https://github.com/StyraInc/enterprise-opa/releases/)
 * Example code and deployment blueprints for Styra Load
 
 For Styra Enterprise OPA documentation, see [docs.styra.com](https://docs.styra.com/load)
@@ -59,30 +59,30 @@ brew install styrainc/packages/load
 
 **MacOS (Apple Silicon)**
 ```shell
-curl -L -o load "https://github.com/StyraInc/load/releases/latest/download/load_Darwin_arm64"
+curl -L -o load "https://github.com/StyraIncenterprise-opa/releases/latest/download/load_Darwin_arm64"
 xattr -d com.apple.quarantine load
 chmod +x load
 ```
 
 **MacOS (x86_64)**
 ```shell
-curl -L -o load "https://github.com/StyraInc/load/releases/latest/download/load_Darwin_x86_64"
+curl -L -o load "https://github.com/StyraIncenterprise-opa/releases/latest/download/load_Darwin_x86_64"
 xattr -d com.apple.quarantine load
 chmod +x load
 ```
 
 **Linux (x86_64)**
 ```shell
-curl -L -o load "https://github.com/StyraInc/load/releases/latest/download/load_Linux_x86_64"
+curl -L -o load "https://github.com/StyraIncenterprise-opa/releases/latest/download/load_Linux_x86_64"
 chmod +x load
 ```
 
 **Windows**
 ```shell
-curl.exe -L -o load.exe "https://github.com/StyraInc/load/releases/latest/download/load_Windows_x86_64.exe"
+curl.exe -L -o load.exe "https://github.com/StyraIncenterprise-opa/releases/latest/download/load_Windows_x86_64.exe"
 ```
 
-See all versions, and checksum files, at the Styra Enterprise OPA [releases](https://github.com/StyraInc/load/releases/) page.
+See all versions, and checksum files, at the Styra Enterprise OPA [releases](https://github.com/StyraIncenterprise-opa/releases/) page.
 
 </details><br/>
 
@@ -90,10 +90,10 @@ See all versions, and checksum files, at the Styra Enterprise OPA [releases](htt
 Alternatively, download the Styra Enterprise OPA Docker image:
 
 ```shell
-docker pull ghcr.io/styrainc/load:latest
+docker pull ghcr.io/styrainc/enterprise-opa:latest
 ```
 
-Checksums for all binaries may optionally be retrieved from [here](https://github.com/StyraInc/load/releases/latest/download/checksums.txt).
+Checksums for all binaries may optionally be retrieved from [here](https://github.com/StyraIncenterprise-opa/releases/latest/download/checksums.txt).
 
 ### 🔑 Obtaining a License
 
@@ -114,7 +114,7 @@ load run --server --license-key <path to file containing license key here> ...
 ### 🐳 Running Enterprise OPA with Docker
 
 ```shell
-docker run -v $(pwd):/load -w /load ghcr.io/styrainc/load:latest run --config-file /load/load-conf.yml
+docker run -v $(pwd):/load -w /load ghcr.io/styrainc/enterprise-opa:latest run --config-file /load/load-conf.yml
 ```
 
 ### ⚡ Running the Enterprise OPA Binary

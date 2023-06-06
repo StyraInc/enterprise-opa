@@ -28,7 +28,7 @@ services:
       "
 
   load:
-    image: ghcr.io/styrainc/load:latest
+    image: ghcr.io/styrainc/enterprise-opa:latest
     ports:
     - "8181:8181"
     command:

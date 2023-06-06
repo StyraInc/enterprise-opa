@@ -54,8 +54,8 @@ vhs < opa.tape
 cleanup
 
 # Launch in background to allow script to keep running
-load run -s https://dl.styra.com/load/bundle-load-400.tar.gz &
-opa run -s -a localhost:8282 https://dl.styra.com/load/bundle-opa-400.tar.gz &
+load run -s https://dl.styra.comenterprise-opa/bundle-load-400.tar.gz &
+opa run -s -a localhost:8282 https://dl.styra.comenterprise-opa/bundle-opa-400.tar.gz &
 
 # Sleep for 4 minutes in order to read memory metrics from Load/OPA "at rest"
 sleep 240

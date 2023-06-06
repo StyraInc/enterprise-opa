@@ -10,8 +10,8 @@ import (
 	"time"
 
 	"github.com/shirou/gopsutil/v3/mem"
-	datav1 "github.com/styrainc/load/proto/gen/go/load/data/v1"
-	policyv1 "github.com/styrainc/load/proto/gen/go/load/policy/v1"
+	datav1 "github.com/styrainc/enterprise-opa/proto/gen/go/eopa/data/v1"
+	policyv1 "github.com/styrainc/enterprise-opa/proto/gen/go/eopa/policy/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/protobuf/types/known/structpb"

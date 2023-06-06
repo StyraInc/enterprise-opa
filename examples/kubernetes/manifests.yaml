@@ -43,7 +43,7 @@ spec:
     spec:
       containers:
       - name: load
-        image: ghcr.io/styrainc/load:latest
+        image: ghcr.io/styrainc/enterprise-opa:latest
         args:
         - "run"
         - "--server"

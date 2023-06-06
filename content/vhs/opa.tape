@@ -8,7 +8,7 @@ Set TypingSpeed 0.03
 Type "# Starting OPA with a large (400MB) RBAC bundle"
 Sleep 200ms
 Enter
-Type "opa run -s -a localhost:8282 https://dl.styra.com/load/bundle-opa-400.tar.gz"
+Type "opa run -s -a localhost:8282 https://dl.styra.comenterprise-opa/bundle-opa-400.tar.gz"
 Sleep 500ms
 Enter
 

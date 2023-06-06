@@ -24,7 +24,7 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 
   load:
-    image: ghcr.io/styrainc/load:latest
+    image: ghcr.io/styrainc/enterprise-opa:latest
     ports:
       - "8181:8181"
     command:

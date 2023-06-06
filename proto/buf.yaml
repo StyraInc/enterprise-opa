@@ -1,5 +1,5 @@
 version: v1
-name: buf.build/styra/load
+name: buf.build/styra/eopa
 breaking:
   use:
     - FILE
