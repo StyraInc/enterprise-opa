@@ -17,6 +17,6 @@ services:
     - "--config-file=/data/enterprise-opa-conf.yaml"
     - "/data/policy.rego"
     environment:
-      STYRA_LOAD_LICENSE_KEY: ${STYRA_LOAD_LICENSE_KEY}
+      STYRA_ENTERPRISE_OPA_LICENSE_KEY: ${STYRA_ENTERPRISE_OPA_LICENSE_KEY}
     volumes:
     - "./:/data"
