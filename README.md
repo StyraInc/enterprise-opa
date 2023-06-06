@@ -51,7 +51,7 @@ Styra Enterprise OPA can run either containerized with Docker, or as a standalon
 
 **MacOS and Linux**
 ```shell
-brew install styrainc/packages/load
+brew install styrainc/packages/enterprise-opa
 ```
 
 <details>

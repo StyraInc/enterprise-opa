@@ -31,7 +31,7 @@ cleanup() {
 
 cleanup
 
-brew remove --force --quiet styrainc/packages/load
+brew remove --force --quiet styrainc/packages/enterprise-opa
 
 rm -rf  load.gif \
         opa.gif \
