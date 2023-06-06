@@ -5,14 +5,14 @@ set -eo pipefail
 TEST_DURATION=5s
 
 opa_pid=""
-load_pid=""
+eopa_pid=""
 
 function cleanup {
   if [ ! -z "$opa_pid" ]; then
     kill "$opa_pid"
   fi
-  if [ ! -z "$load_pid" ]; then
-    kill "$load_pid"
+  if [ ! -z "$eopa_pid" ]; then
+    kill "$eopa_pid"
   fi
 }
 
@@ -77,7 +77,7 @@ echo ""
 
 # Enterprise OPA Test
 nohup eopa run --server -b "$2" > load.log 2>&1 &
-load_pid="$!"
+eopa_pid="$!"
 
 while [[ "$(curl -X "POST" -d $'{"input": {}}' -s -o /dev/null -w ''%{http_code}'' http://localhost:8181/v1/data/rbac/allow?metrics)" != "200" ]]; do
   echo "Waiting for Enterprise OPA to start..."
@@ -88,7 +88,7 @@ echo "Running Enterprise OPA test..."
 k6 -q run -u 10 -d $TEST_DURATION -e HOST=localhost -e QUERY_FILE="$3" test.js
 echo "" # needed to make sure k6 output is on a new line
 echo "Stopping Load..."
-kill "$load_pid"
-load_pid=""
+kill "$eopa_pid"
+eopa_pid=""
 
 cleanup

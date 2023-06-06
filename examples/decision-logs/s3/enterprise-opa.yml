@@ -1,5 +1,5 @@
 plugins:
-  load_decision_logger:
+  enterprise_opa_decision_logger:
     output:
     - type: s3
       endpoint: http://s3:9000

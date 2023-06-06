@@ -2,7 +2,7 @@ services:
 - name: dl
   url: http://127.0.0.1:4195/post
 plugins:
-  load_decision_logger:
+  enterprise_opa_decision_logger:
     drop_decision: /demo/drop
     mask_decision: /demo/mask
     buffer:

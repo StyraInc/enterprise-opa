@@ -1,4 +1,4 @@
-Output load.gif
+Output enterprise-opa.gif
 
 Require brew
 

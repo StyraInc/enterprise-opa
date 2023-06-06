@@ -59,27 +59,27 @@ brew install styrainc/packages/enterprise-opa
 
 **MacOS (Apple Silicon)**
 ```shell
-curl -L -o eopa "https://github.com/StyraInc/enterprise-opa/releases/latest/download/load_Darwin_arm64"
+curl -L -o eopa "https://github.com/StyraInc/enterprise-opa/releases/latest/download/eopa_Darwin_arm64"
 xattr -d com.apple.quarantine load
 chmod +x load
 ```
 
 **MacOS (x86_64)**
 ```shell
-curl -L -o eopa "https://github.com/StyraInc/enterprise-opa/releases/latest/download/load_Darwin_x86_64"
+curl -L -o eopa "https://github.com/StyraInc/enterprise-opa/releases/latest/download/eopa_Darwin_x86_64"
 xattr -d com.apple.quarantine load
 chmod +x load
 ```
 
 **Linux (x86_64)**
 ```shell
-curl -L -o eopa "https://github.com/StyraInc/enterprise-opa/releases/latest/download/load_Linux_x86_64"
+curl -L -o eopa "https://github.com/StyraInc/enterprise-opa/releases/latest/download/eopa_Linux_x86_64"
 chmod +x load
 ```
 
 **Windows**
 ```shell
-curl.exe -L -o load.exe "https://github.com/StyraInc/enterprise-opa/releases/latest/download/load_Windows_x86_64.exe"
+curl.exe -L -o load.exe "https://github.com/StyraInc/enterprise-opa/releases/latest/download/eopa_Windows_x86_64.exe"
 ```
 
 See all versions, and checksum files, at the Styra Enterprise OPA [releases](https://github.com/StyraInc/enterprise-opa/releases/) page.

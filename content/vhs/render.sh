@@ -16,9 +16,9 @@
 cleanup() {
     rm -rf .opa
 
-    local load_pid=$(lsof -t -i:8181)
-    if [ -n "$load_pid" ]; then
-        kill -9 "$load_pid"
+    local eopa_pid=$(lsof -t -i:8181)
+    if [ -n "$eopa_pid" ]; then
+        kill -9 "$eopa_pid"
     fi
 
     local opa_pid=$(lsof -t -i:8282)
@@ -33,11 +33,11 @@ cleanup
 
 brew remove --force --quiet styrainc/packages/enterprise-opa
 
-rm -rf  load.gif \
+rm -rf  enterprise-opa.gif \
         opa.gif \
         memory.gif \
         helloworld.gif \
-        "$HOME"/Library/Caches/Homebrew/downloads/*load_Darwin_arm64
+        "$HOME"/Library/Caches/Homebrew/downloads/*eopa_Darwin_arm64
 
 export HOMEBREW_NO_ENV_HINTS=1
 
@@ -62,8 +62,8 @@ sleep 240
 
 vhs < memory.tape
 
-gifsicle --colors 256 load.gif opa.gif memory.gif > ../img/helloworld.gif
+gifsicle --colors 256 enterprise-opa.gif opa.gif memory.gif > ../img/helloworld.gif
 
-rm -rf load.gif opa.gif memory.gif
+rm -rf enterprise-opa.gif opa.gif memory.gif
 
 cleanup
