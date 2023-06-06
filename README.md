@@ -17,7 +17,7 @@ Styra Enterprise OPA is designed to offer:
 <details>
   <summary><strong>Try it out!</strong></summary>
 
-1. `brew install styrainc/packages/enterprise-opa`
+1. `brew install styrainc/packages/eopa`
 2. `export STYRA_ENTERPRISE_OPA_LICENSE_KEY=<your license key>`
 3. `eopa run -s https://dl.styra.com/enterprise-opa/bundle-enterprise-opa-400.tar.gz`
 4. `curl 'http://localhost:8181/metrics/alloc_bytes?pretty=true'`
@@ -51,7 +51,7 @@ Styra Enterprise OPA can run either containerized with Docker, or as a standalon
 
 **MacOS and Linux**
 ```shell
-brew install styrainc/packages/enterprise-opa
+brew install styrainc/packages/eopa
 ```
 
 <details>

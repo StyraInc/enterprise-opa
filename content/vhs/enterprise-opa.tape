@@ -7,7 +7,7 @@ Set Width 1200
 Set Height 600
 Set TypingSpeed 0.03
 
-Type "brew install styrainc/packages/enterprise-opa"
+Type "brew install styrainc/packages/eopa"
 Sleep 500ms
 Enter
 Sleep 8s
