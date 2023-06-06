@@ -37,7 +37,7 @@ closer to real-world use.
 
 This repository provides:
 
-* The Styra Enterprise OPA [Docker images](https://github.com/StyraInc/enterprise-opa/pkgs/container/load)
+* The Styra Enterprise OPA [Docker images](https://github.com/StyraInc/enterprise-opa/pkgs/container/enterprise-opa)
 * The Styra Enterprise OPA [binaries](https://github.com/StyraInc/enterprise-opa/releases/)
 * Example code and deployment blueprints for Styra Enterprise OPA
 
