@@ -18,7 +18,7 @@ Styra Enterprise OPA is designed to offer:
   <summary><strong>Try it out!</strong></summary>
 
 1. `brew install styrainc/packages/eopa`
-2. `export STYRA_ENTERPRISE_OPA_LICENSE_KEY=<your license key>`
+2. `export EOPA_LICENSE_KEY=<your license key>`
 3. `eopa run -s https://dl.styra.com/enterprise-opa/bundle-enterprise-opa-400.tar.gz`
 4. `curl 'http://localhost:8181/metrics/alloc_bytes?pretty=true'`
 
@@ -102,7 +102,7 @@ Running Styra Enterprise OPA requires a valid license key. To evaluate Styra Ent
 The license key can either be provided the `eopa` command via an environment variable:
 
 ```shell
-export STYRA_ENTERPRISE_OPA_LICENSE_KEY=<license key here>
+export EOPA_LICENSE_KEY=<license key here>
 ```
 
 Or via the filesystem using the `--license-key` flag:

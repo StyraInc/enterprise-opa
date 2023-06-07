@@ -10,7 +10,7 @@
 
 # Prerequisites:
 # `brew install gifsicle`
-# `export STYRA_ENTERPRISE_OPA_LICENSE_KEY=...``
+# `export EOPA_LICENSE_KEY=...``
 # Change the license key in enterprise-opa.tape to a valid one
 
 cleanup() {

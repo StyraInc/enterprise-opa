@@ -50,7 +50,7 @@ spec:
         - "--addr=0.0.0.0:8181"
         - "--config-file=/etc/config/config.yaml"
         env:
-        - name: STYRA_ENTERPRISE_OPA_LICENSE_KEY
+        - name: EOPA_LICENSE_KEY
           valueFrom:
             secretKeyRef:
               name: styra-enterprise-opa-license

@@ -14,7 +14,7 @@ Sleep 8s
 
 Ctrl+L
 
-Type "export STYRA_ENTERPRISE_OPA_LICENSE_KEY=CHANGEME"
+Type "export EOPA_LICENSE_KEY=CHANGEME"
 Sleep 1500ms
 Enter
 Sleep 200ms

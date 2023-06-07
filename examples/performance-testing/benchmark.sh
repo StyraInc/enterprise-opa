@@ -47,8 +47,8 @@ else
     exit 1
 fi
 
-if [ -z "${STYRA_ENTERPRISE_OPA_LICENSE_KEY}" ]; then
-    echo "STYRA_ENTERPRISE_OPA_LICENSE_KEY must be set"
+if [ -z "${EOPA_LICENSE_KEY}" ]; then
+    echo "EOPA_LICENSE_KEY must be set"
     exit 1
 fi
 

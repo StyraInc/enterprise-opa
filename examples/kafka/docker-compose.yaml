@@ -35,7 +35,7 @@ services:
       - "--config-file=/data/enterprise-opa-conf.yaml"
       - "/data/policy/transform.rego"
     environment:
-      STYRA_ENTERPRISE_OPA_LICENSE_KEY: ${STYRA_ENTERPRISE_OPA_LICENSE_KEY}
+      EOPA_LICENSE_KEY: ${EOPA_LICENSE_KEY}
     volumes:
       - "./:/data"
     depends_on:
