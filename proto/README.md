@@ -1,14 +1,14 @@
-# Styra Load gRPC API
+# Styra Enterprise OPA gRPC API
 
-This folder contains the definitions of [Protocol Buffers][protobuf] used by [Styra Load][gh-styra-load].
+This folder contains the definitions of [Protocol Buffers][protobuf] used by [Styra Enterprise OPA][gh-styra-enterprise-opa].
 
 We use [Buf][buf] to manage and generate source code from the protocol buffer definitions.
-The protobuf definitions here are a mirror of what we have pushed to the [`buf.build/styra/load`][buf-styra-load] repository in the Buf Registry.
+The protobuf definitions here are a mirror of what we have pushed to the [`buf.build/styra/enterprise-opa`][buf-styra-enterprise-opa] repository in the Buf Registry.
 
    [protobuf]: https://developers.google.com/protocol-buffers/
    [buf]: https://github.com/bufbuild/buf
-   [gh-styra-load]: https://github.com/StyraInc/load
-   [buf-styra-load]: https://buf.build/styra/load
+   [gh-styra-enterprise-opa]: https://github.com/StyraInc/enterprise-opa
+   [buf-styra-enterprise-opa]: https://buf.build/styra/enterprise-opa
 
 ## Build
 

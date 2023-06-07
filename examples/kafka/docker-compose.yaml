@@ -23,8 +23,8 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
 
-  load:
-    image: ghcr.io/styrainc/load:latest
+  enterprise-opa:
+    image: ghcr.io/styrainc/enterprise-opa:latest
     ports:
       - "8181:8181"
     command:
@@ -32,10 +32,10 @@ services:
       - "--server"
       - "--addr=0.0.0.0:8181"
       - "--log-level=debug"
-      - "--config-file=/data/load-conf.yaml"
+      - "--config-file=/data/enterprise-opa-conf.yaml"
       - "/data/policy/transform.rego"
     environment:
-      STYRA_LOAD_LICENSE_KEY: ${STYRA_LOAD_LICENSE_KEY}
+      EOPA_LICENSE_KEY: ${EOPA_LICENSE_KEY}
     volumes:
       - "./:/data"
     depends_on:

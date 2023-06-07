@@ -13,7 +13,7 @@
 // limitations under the License.
 
 syntax = "proto3";
-package load.policy.v1;
+package eopa.policy.v1;
 
 // Policy is a thin wrapper type around a Rego policy.
 message Policy {
@@ -73,7 +73,7 @@ service PolicyService {
   // This is equivalent in functionality to OPA's
   // [Policy REST API List method](https://www.openpolicyagent.org/docs/latest/rest-api/#list-policies).
   //
-  // Warning: This request will enumerate *all* policies stored by the Load
+  // Warning: This request will enumerate *all* policies stored by the Enterprise OPA
   // instance. This can have substantial overheads if the policies are large
   // in size.
   rpc ListPolicies(ListPoliciesRequest) returns (ListPoliciesResponse);

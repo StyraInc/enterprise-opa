@@ -12,10 +12,10 @@ make build
 
 ## Run the demo
 
-In one terminal, start up a Styra Load instance with the provided config file:
+In one terminal, start up a Styra Enterprise OPA instance with the provided config file:
 
 ```bash
-$ ./load -c config.yaml
+$ ./eopa -c config.yaml
 ```
 
 In a second terminal, let's fire up the gRPC client program:

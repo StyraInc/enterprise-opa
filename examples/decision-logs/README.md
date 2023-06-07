@@ -1,3 +1,3 @@
 # Enhanced Decision Logs
 
-Example code for the Styra Load [Decision Logs Enhancements tutorial](https://docs.styra.com/load/tutorials/decision-logs).
+Example code for the Styra Enterprise OPA [Decision Logs Enhancements tutorial](https://docs.styra.com/enterprise-opa/tutorials/decision-logs).

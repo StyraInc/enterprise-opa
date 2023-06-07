@@ -10,8 +10,8 @@ import (
 	"time"
 
 	"github.com/shirou/gopsutil/v3/mem"
-	datav1 "github.com/styrainc/load/proto/gen/go/load/data/v1"
-	policyv1 "github.com/styrainc/load/proto/gen/go/load/policy/v1"
+	datav1 "github.com/styrainc/enterprise-opa/proto/gen/go/eopa/data/v1"
+	policyv1 "github.com/styrainc/enterprise-opa/proto/gen/go/eopa/policy/v1"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/protobuf/types/known/structpb"
@@ -48,16 +48,16 @@ func main() {
 		addr = "localhost:9090"
 	}
 
-	// Connect to the Load instance.
+	// Connect to the Enterprise OPA instance.
 	conn, err := grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
-		log.Fatalf("failed to dial the Load server: %v", err)
+		log.Fatalf("failed to dial the Enterprise OPA server: %v", err)
 	}
 	defer conn.Close()
 	clientData := datav1.NewDataServiceClient(conn)
 	clientPolicy := policyv1.NewPolicyServiceClient(conn)
 
-	// Create a new policy by reading the policy file in, and then pushing the policy up to the Load instance via gRPC.
+	// Create a new policy by reading the policy file in, and then pushing the policy up to the Enterprise OPA instance via gRPC.
 	policy, err := os.ReadFile("policy.rego")
 	if err != nil {
 		log.Fatal(err)
@@ -69,7 +69,7 @@ func main() {
 
 	// Query the service until the user hits Ctrl-C.
 	for {
-		// Query virtual memory stats with psutil, then push those stats up to the Load instance via gRPC.
+		// Query virtual memory stats with psutil, then push those stats up to the Enterprise OPA instance via gRPC.
 		v, _ := mem.VirtualMemory()
 		if err := pushMemStats(ctx, clientData, v); err != nil {
 			log.Println(err)
