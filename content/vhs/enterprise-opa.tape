@@ -7,21 +7,21 @@ Set Width 1200
 Set Height 600
 Set TypingSpeed 0.03
 
-Type "brew install styrainc/packages/eopa"
-Sleep 500ms
+Type "brew install -q styrainc/packages/eopa"
 Enter
-Sleep 8s
+Sleep 2s
 
-Ctrl+L
+Require eopa
 
-Type "export EOPA_LICENSE_KEY=CHANGEME"
+Type "export EOPA_LICENSE_KEY=YOUR-LICENSE-HERE"
 Sleep 1500ms
-Enter
-Sleep 200ms
+Hide
+Ctrl+C
 
 Ctrl+L
 
 Type "# Starting Styra Enterprise OPA with a large (400MB) RBAC bundle"
+Show
 Sleep 200ms
 Enter
 Type "eopa run -s https://dl.styra.com/enterprise-opa/bundle-enterprise-opa-400.tar.gz"
