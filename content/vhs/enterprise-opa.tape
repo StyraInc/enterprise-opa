@@ -13,14 +13,38 @@ Sleep 2s
 
 Require eopa
 
-Type "export EOPA_LICENSE_KEY=YOUR-LICENSE-HERE"
-Sleep 1500ms
 Hide
-Ctrl+C
+Type "# Start a trial!"
+Enter
+Sleep 200ms
+Show
+Type "eopa license trial \"
+Enter
+Type "  --first-name Bobby \"
+Enter
+Type "  --last-name Tables \"
+Enter
+Type "  --email bobby@styra.com \"
+Enter
+Type "  --company 'Acme Inc' \"
+Enter
+Type "  --country US \"
+Enter
+Type "  --key-only > license_key"
+Enter
+Sleep 4s
+
+Type "export EOPA_LICENSE_KEY=$(cat license_key)"
+Enter
+Sleep 500ms
+Type "eopa license"
+Enter
+Sleep 4s
 
 Ctrl+L
 
-Type "# Starting Styra Enterprise OPA with a large (400MB) RBAC bundle"
+Hide
+Type "# Starting Enterprise OPA with a large (400MB) RBAC bundle"
 Show
 Sleep 200ms
 Enter
