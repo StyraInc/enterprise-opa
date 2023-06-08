@@ -52,7 +52,7 @@ vhs < opa.tape
 cleanup
 
 # Launch in background to allow script to keep running
-eopa run -s https://dl.styra.com/enterprise-opa/bundle-enterprise-opa-400.tar.gz &
+EOPA_LICENSE_KEY=$(cat license_key) eopa run -s https://dl.styra.com/enterprise-opa/bundle-enterprise-opa-400.tar.gz &
 opa run -s -a localhost:8282 https://dl.styra.com/enterprise-opa/bundle-opa-400.tar.gz &
 
 # Sleep for 4 minutes in order to read memory metrics from Enterprise OPA/OPA "at rest"
