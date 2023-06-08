@@ -4,8 +4,11 @@ Set Shell "bash"
 Set Width 1200
 Set Height 600
 Set TypingSpeed 0.03
+Require opa
 
+Hide
 Type "# Starting OPA with a large (400MB) RBAC bundle"
+Show
 Sleep 200ms
 Enter
 Type "opa run -s -a localhost:8282 https://dl.styra.com/enterprise-opa/bundle-opa-400.tar.gz"

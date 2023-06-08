@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -eo pipefail
 
 # Script to "render" the Hello World animated gif, demonstrating
 # the memory savings of Styra Enterprise OPA compared to OPA. This script uses
@@ -31,13 +32,10 @@ cleanup() {
 
 cleanup
 
-brew remove --force --quiet styrainc/packages/enterprise-opa
-
 rm -rf  enterprise-opa.gif \
         opa.gif \
         memory.gif \
-        helloworld.gif \
-        "$HOME"/Library/Caches/Homebrew/downloads/*eopa_Darwin_arm64
+        helloworld.gif
 
 export HOMEBREW_NO_ENV_HINTS=1
 
