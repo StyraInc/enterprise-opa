@@ -1,5 +1,7 @@
+decision_logs:
+  plugin: eopa_dl
 plugins:
-  enterprise_opa_decision_logger:
+  eopa_dl:
     output:
     - type: s3
       endpoint: http://s3:9000

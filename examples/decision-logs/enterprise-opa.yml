@@ -1,10 +1,12 @@
 services:
 - name: dl
   url: http://127.0.0.1:4195/post
+decision_logs:
+  plugin: eopa_dl
+  drop_decision: /demo/drop
+  mask_decision: /demo/mask
 plugins:
-  enterprise_opa_decision_logger:
-    drop_decision: /demo/drop
-    mask_decision: /demo/mask
+  eopa_dl:
     buffer:
       type: memory
     output:
