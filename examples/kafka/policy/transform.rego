@@ -7,10 +7,10 @@ import future.keywords.in
 
 _payload(msg) := json.unmarshal(base64.decode(msg.value))
 
-batch_ids contains _payload(msg).id if some msg in input
+batch_ids contains _payload(msg).id if some msg in input.incoming
 
 transform[payload.id] := val if {
-	some msg in input
+	some msg in input.incoming
 	msg.topic == "users"
 
 	payload := _payload(msg)
@@ -18,6 +18,6 @@ transform[payload.id] := val if {
 }
 
 transform[key] := val {
-	some key, val in data.kafka.messages
+	some key, val in input.previous
 	not key in batch_ids
 }
