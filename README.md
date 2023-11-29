@@ -1,3 +1,8 @@
+<a href="https://github.com/StyraInc/enterprise-opa/releases/tag/v1.13.0">
+  <img alt="Static Badge" src="https://img.shields.io/badge/version-v1.13.0-blue">
+</a>
+
+
 # Styra Enterprise OPA
 
 ![Styra](./content/img/logo.png)
