@@ -1,5 +1,4 @@
-![Enterprise OPA v1.13.0](https://img.shields.io/badge/version-v1.13.0-blue)
-![OPA v0.58.0](https://img.shields.io/endpoint?url=https://openpolicyagent.org/badge-endpoint/v0.58.0)
+![OPA v0.59.0](https://img.shields.io/endpoint?url=https://openpolicyagent.org/badge-endpoint/v0.59.0)
 
 
 # Styra Enterprise OPA
