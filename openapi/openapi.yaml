@@ -1,0 +1,231 @@
+openapi: 3.0.3
+info:
+  title: Enterprise OPA REST API
+  version: 0.1.0
+  contact:
+    name: Styra
+    url: "https://github.com/StyraInc/enterprise-opa"
+externalDocs:
+  description: Enterprise OPA documentation
+  url: "https://docs.styra.com/enterprise-opa"
+  x-openpolicyagent-documentation-url: "https://www.openpolicyagent.org/docs/latest/"
+servers:
+- url: https://localhost:8181
+  description: Local development server
+paths:
+  /v1/data/{path}:
+    get:
+      parameters:
+      - $ref: "#/components/parameters/policyPath"
+      - $ref: "#/components/parameters/GzipAcceptEncoding"
+      - $ref: "#/components/parameters/pretty"
+      - $ref: "#/components/parameters/provenance"
+      - $ref: "#/components/parameters/explain"
+      - $ref: "#/components/parameters/metrics"
+      - $ref: "#/components/parameters/instrument"
+      - $ref: "#/components/parameters/strict-builtin-errors"
+      summary: Execute a policy
+      operationId: executePolicy
+      responses:
+        "200":
+          $ref: "#/components/responses/SuccessfulPolicyEvaluation"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/ServerError"
+    post:
+      parameters:
+      - $ref: "#/components/parameters/policyPath"
+      - $ref: "#/components/parameters/GzipContentEncoding"
+      - $ref: "#/components/parameters/GzipAcceptEncoding"
+      - $ref: "#/components/parameters/pretty"
+      - $ref: "#/components/parameters/provenance"
+      - $ref: "#/components/parameters/explain"
+      - $ref: "#/components/parameters/metrics"
+      - $ref: "#/components/parameters/instrument"
+      - $ref: "#/components/parameters/strict-builtin-errors"
+      summary: Execute a policy given an input
+      operationId: executePolicyWithInput
+      x-speakeasy-usage-example: true
+      requestBody:
+        description: The input document
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [input]
+              properties:
+                input:
+                  type: object
+                  description: Arbitrary JSON used within your policies by accessing `input`
+                  additionalProperties: true
+      responses:
+        "200":
+          $ref: "#/components/responses/SuccessfulPolicyEvaluation"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/ServerError"
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer      
+  headers:
+    GzipContentEncoding:
+      description: Indicates that the response body is gzip encoded
+      schema:
+        type: string
+        enum: [gzip]
+  parameters:
+    policyPath:  
+      name: path
+      in: path
+      description: The path separator is used to access values inside object and array documents. If the path indexes into an array, the server will attempt to convert the array index to an integer. If the path element cannot be converted to an integer, the server will respond with 404.
+      required: true
+      schema:
+        type: string
+        default: ""
+        format: urlPath
+    GzipContentEncoding:
+      name: Content-Encoding
+      description: Indicates that the request body is gzip encoded
+      in: header
+      schema:
+        type: string
+        enum: [gzip]
+    GzipAcceptEncoding:
+      name: Accept-Encoding
+      description: Indicates the server should respond with a gzip encoded body. The server will send the compressed response only if its length is above `server.encoding.gzip.min_length` value. See the configuration section
+      in: header
+      schema:
+        type: string
+        enum: [gzip]
+    pretty:
+      name: pretty
+      description: If parameter is `true`, response will formatted for humans.
+      in: query
+      schema:
+        type: boolean
+    provenance:
+      name: provenance
+      description: If parameter is true, response will include build/version info in addition to the result.
+      in: query
+      schema:
+        type: boolean
+    explain:
+      name: explain
+      description: Return query explanation in addition to result.
+      in: query
+      schema:
+        type: string
+        enum: [notes, fails, full, debug]
+    metrics:
+      name: metrics
+      description: Return query performance metrics in addition to result.
+      in: query
+      schema:
+        type: boolean
+    instrument:
+      name: instrument
+      description: Instrument query evaluation and return a superset of performance metrics in addition to result.
+      in: query
+      schema:
+        type: boolean
+    strict-builtin-errors:
+      name: strict-builtin-errors
+      description: Treat built-in function call errors as fatal and return an error immediately.
+      in: query
+      schema:
+        type: boolean
+  schemas:
+    result:
+      type: object
+      description: The base or virtual document referred to by the URL path. If the path is undefined, this key will be omitted.
+      additionalProperties: true
+    provenance:
+      type: object
+      description: Provenance information can be requested on individual API calls and are returned inline with the API response. To obtain provenance information on an API call, specify the `provenance=true` query parameter when executing the API call.                  
+      properties:
+        version:
+          type: string
+        build_commit:
+          type: string
+        build_timestamp:
+          type: string
+          format: date-time 
+        build_host:
+          type: string
+        bundles:
+          type: object
+          additionalProperties:
+            type: object
+            title: Revision
+            required: [revision]
+            properties:
+              revision:
+                type: string
+    ClientError:
+      type: object
+      required: [code, message]
+      properties:
+        code: {type: string}
+        message: {type: string}
+        errors:
+          type: array
+          items:
+            type: object
+            required: [code, message]
+            properties:
+              code: {type: string}
+              message: {type: string}
+              location:
+                type: object
+                required: [file, row, col]
+                properties:
+                  file: {type: string}
+                  row: {type: integer}
+                  col: {type: integer}
+    ServerError: {$ref: "#/components/schemas/ClientError"}
+  responses:
+    SuccessfulPolicyEvaluation:
+      description: >
+        Success.
+
+        The server also returns 200 if the path refers to an undefined document. In this case, the response will not contain a result property.
+      headers:
+        "Content-Encoding":
+          $ref: "#/components/headers/GzipContentEncoding"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                $ref: "#/components/schemas/result"
+              metrics:
+                type: object
+                description: If query metrics are enabled, this field contains query performance metrics collected during the parse, compile, and evaluation steps.
+                additionalProperties: true
+              decision_id:
+                type: string
+                description: If decision logging is enabled, this field contains a string that uniquely identifies the decision. The identifier will be included in the decision log event for this decision. Callers can use the identifier for correlation purposes.
+              provenance:
+                $ref: "#/components/schemas/provenance"
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ClientError"
+    ServerError:
+      description: Server Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ServerError"
+security:
+- {}
+- bearerAuth: []
+
