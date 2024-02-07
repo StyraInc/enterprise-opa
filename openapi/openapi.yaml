@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Enterprise OPA REST API
-  version: 0.1.0
+  version: 0.2.0
   contact:
     name: Styra
     url: "https://github.com/StyraInc/enterprise-opa"
@@ -10,7 +10,7 @@ externalDocs:
   url: "https://docs.styra.com/enterprise-opa"
   x-openpolicyagent-documentation-url: "https://www.openpolicyagent.org/docs/latest/"
 servers:
-- url: https://localhost:8181
+- url: http://localhost:8181
   description: Local development server
 paths:
   /v1/data/{path}:
@@ -141,9 +141,16 @@ components:
         type: boolean
   schemas:
     result:
-      type: object
       description: The base or virtual document referred to by the URL path. If the path is undefined, this key will be omitted.
-      additionalProperties: true
+      oneOf:
+      - type: boolean
+      - type: string
+      - type: integer
+      - type: array
+        items: {}
+      - type: number
+      - type: object
+        additionalProperties: true
     provenance:
       type: object
       description: Provenance information can be requested on individual API calls and are returned inline with the API response. To obtain provenance information on an API call, specify the `provenance=true` query parameter when executing the API call.                  
