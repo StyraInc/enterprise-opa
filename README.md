@@ -1,4 +1,4 @@
-![OPA v0.61.0](https://img.shields.io/endpoint?url=https://openpolicyagent.org/badge-endpoint/v0.61.0)
+![OPA v0.61.0](https://img.shields.io/endpoint?url=https://openpolicyagent.org/badge-endpoint/v0.61.0) [![Regal v0.16.0](https://img.shields.io/github/v/release/styrainc/regal?filter=v0.16.0&label=Regal)](https://github.com/StyraInc/regal/releases/tag/v0.16.0)
 
 
 # Styra Enterprise OPA
