@@ -67,6 +67,20 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "500":
           $ref: "#/components/responses/ServerError"
+  /health:
+    get:
+      parameters:
+      - $ref: "#/components/parameters/bundles"
+      - $ref: "#/components/parameters/plugins"
+      - $ref: "#/components/parameters/exclude-plugin"
+      summary: Verify the server is operational
+      operationId: health
+      description: The health API endpoint executes a simple built-in policy query to verify that the server is operational. Optionally it can account for bundle activation as well (useful for “ready” checks at startup).
+      responses:
+        "200":
+          $ref: "#/components/responses/HealthyServer"
+        "500":
+          $ref: "#/components/responses/UnhealthyServer"
 components:
   securitySchemes:
     bearerAuth:
@@ -139,6 +153,32 @@ components:
       in: query
       schema:
         type: boolean
+    bundles:
+      name: bundles
+      in: query
+      description: Boolean parameter to account for bundle activation status in response. This includes any discovery bundles or bundles defined in the loaded discovery configuration.
+      required: false
+      schema:
+        type: boolean
+        default: false
+    plugins:
+      name: plugins
+      in: query
+      description: Boolean parameter to account for plugin status in response.
+      required: false
+      schema:
+        type: boolean
+        default: false
+    exclude-plugin:
+      name: exclude-plugin
+      in: query
+      description: String parameter to exclude a plugin from status checks. Can be added multiple times. Does nothing if plugins is not true. This parameter is useful for special use cases where a plugin depends on the server being fully initialized before it can fully initialize itself.
+      required: false
+      schema:
+        type: array
+        default: []
+        items:
+          type: string
   schemas:
     result:
       description: The base or virtual document referred to by the URL path. If the path is undefined, this key will be omitted.
@@ -195,6 +235,11 @@ components:
                   row: {type: integer}
                   col: {type: integer}
     ServerError: {$ref: "#/components/schemas/ClientError"}
+    UnhealthyServer:
+      type: object
+      required: [error]
+      properties:
+        code: {type: string}
   responses:
     SuccessfulPolicyEvaluation:
       description: >
@@ -232,6 +277,19 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ServerError"
+    HealthyServer:
+      description: OPA service is healthy. If the bundles option is specified then all configured bundles have been activated. If the plugins option is specified then all plugins are in an OK state.
+      content:
+        application/json:
+          schema:
+            type: object
+    UnhealthyServer:
+      description: OPA service is not healthy. If the bundles option is specified this can mean any of the configured bundles have not yet been activated. If the plugins option is specified then at least one plugin is in a non-OK state.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UnhealthyServer"
+
 security:
 - {}
 - bearerAuth: []
