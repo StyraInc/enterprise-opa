@@ -78,9 +78,9 @@ paths:
       description: The health API endpoint executes a simple built-in policy query to verify that the server is operational. Optionally it can account for bundle activation as well (useful for “ready” checks at startup).
       responses:
         "200":
-          description: OPA service is healthy. If the bundles option is specified then all configured bundles have been activated. If the plugins option is specified then all plugins are in an OK state.
+          $ref: "#/components/responses/HealthyServer"
         "500":
-          description: OPA service is not healthy. If the bundles option is specified this can mean any of the configured bundles have not yet been activated. If the plugins option is specified then at least one plugin is in a non-OK state.
+          $ref: "#/components/responses/UnhealthyServer"
 components:
   securitySchemes:
     bearerAuth:
@@ -235,6 +235,11 @@ components:
                   row: {type: integer}
                   col: {type: integer}
     ServerError: {$ref: "#/components/schemas/ClientError"}
+    UnhealthyServer:
+      type: object
+      required: [error]
+      properties:
+        code: {type: string}
   responses:
     SuccessfulPolicyEvaluation:
       description: >
@@ -272,6 +277,19 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ServerError"
+    HealthyServer:
+      description: OPA service is healthy. If the bundles option is specified then all configured bundles have been activated. If the plugins option is specified then all plugins are in an OK state.
+      content:
+        application/json:
+          schema:
+            type: object
+    UnhealthyServer:
+      description: OPA service is not healthy. If the bundles option is specified this can mean any of the configured bundles have not yet been activated. If the plugins option is specified then at least one plugin is in a non-OK state.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/UnhealthyServer"
+
 security:
 - {}
 - bearerAuth: []
