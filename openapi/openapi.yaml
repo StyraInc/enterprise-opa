@@ -73,7 +73,7 @@ paths:
       - $ref: "#/components/parameters/bundles"
       - $ref: "#/components/parameters/plugins"
       - $ref: "#/components/parameters/exclude-plugin"
-      summary: Very the server is operational
+      summary: Verify the server is operational
       operationId: health
       description: The health API endpoint executes a simple built-in policy query to verify that the server is operational. Optionally it can account for bundle activation as well (useful for “ready” checks at startup).
       responses:
