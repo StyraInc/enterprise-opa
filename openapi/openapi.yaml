@@ -57,9 +57,7 @@ paths:
               required: [input]
               properties:
                 input:
-                  type: object
-                  description: Arbitrary JSON used within your policies by accessing `input`
-                  additionalProperties: true
+                  $ref: "#/components/schemas/input"
       responses:
         "200":
           $ref: "#/components/responses/SuccessfulPolicyEvaluation"
@@ -180,12 +178,21 @@ components:
         items:
           type: string
   schemas:
+    input:
+      description: Arbitrary JSON used within your policies by accessing `input`
+      oneOf:
+      - type: boolean
+      - type: string
+      - type: array
+        items: {}
+      - type: number
+      - type: object
+        additionalProperties: true
     result:
       description: The base or virtual document referred to by the URL path. If the path is undefined, this key will be omitted.
       oneOf:
       - type: boolean
       - type: string
-      - type: integer
       - type: array
         items: {}
       - type: number
