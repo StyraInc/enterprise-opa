@@ -100,6 +100,7 @@ components:
         type: string
         default: ""
         format: urlPath
+        example: "app/rbac"
     GzipContentEncoding:
       name: Content-Encoding
       description: Indicates that the request body is gzip encoded
@@ -181,23 +182,32 @@ components:
     input:
       description: Arbitrary JSON used within your policies by accessing `input`
       oneOf:
+      - type: object
+        additionalProperties: true
+        example:
+          user: alice
+          action: read
+          object: id123
+          type: dog
       - type: boolean
       - type: string
       - type: array
         items: {}
       - type: number
-      - type: object
-        additionalProperties: true
     result:
       description: The base or virtual document referred to by the URL path. If the path is undefined, this key will be omitted.
       oneOf:
+      - type: object
+        additionalProperties: true
+        example:
+          allow: true
+          user_is_admin: true
+          user_is_granted: []
       - type: boolean
       - type: string
       - type: array
         items: {}
       - type: number
-      - type: object
-        additionalProperties: true
     provenance:
       type: object
       description: Provenance information can be requested on individual API calls and are returned inline with the API response. To obtain provenance information on an API call, specify the `provenance=true` query parameter when executing the API call.                  
