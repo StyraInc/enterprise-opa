@@ -10,11 +10,11 @@ Use `eopa test .` (or `opa test .`) for running [the included unit tests](./tran
 
 ## E2E Testing
 
-In this directory, you find:
+In this directory, you should find:
 
 -   A `docker-compose.yaml` that lets you spin up a local RedPanda instance with a handy web console on http://127.0.0.1:8080.
 -   A `benthos-kafka.yml` config that lets you use [Benthos](https://benthos.dev) to generate Kafka messages the three topics.
--   An `enterprise-opa.yml` config that lets you spin up an Enterprise OPA instances configured to consume the tree topics.
+-   An `enterprise-opa.yml` config that lets you spin up an Enterprise OPA instances configured to consume the three topics.
 
 These are the steps, to be run in separate terminal panes or via [mprocs](https://github.com/pvolok/mprocs):
 
