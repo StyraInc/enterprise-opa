@@ -91,3 +91,16 @@ test_unspecific_topic_updates if {
 		with input.incoming as [_kafka_msg("roles", {"id": "admin", "permissions": "all"})]
 	new == {"roles": {"admin": {"id": "admin", "permissions": "all"}}}
 }
+
+test_kind_from_topic_one_message if {
+	new := transform with input.previous as {}
+		with input.incoming as [_kafka_msg("group-topic", {"id": "sci", "name": "scientists"})]
+	new == {"groups": {"sci": {"name": "scientists"}}}
+}
+
+test_kind_from_topic_with_updates if {
+	# alice gets an update, ruth's record must be kept, maga is deleted
+	new := transform with input.previous.groups as {"sci": {"name": "scientists", "old": "record"}}
+		with input.incoming as [_kafka_msg("group-topic", {"id": "sci", "name": "scientists"})]
+	new == {"groups": {"sci": {"name": "scientists"}}}
+}
