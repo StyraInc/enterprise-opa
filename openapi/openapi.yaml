@@ -182,6 +182,11 @@ components:
     input:
       description: Arbitrary JSON used within your policies by accessing `input`
       oneOf:
+      - type: boolean
+      - type: string
+      - type: number
+      - type: array
+        items: {}
       - type: object
         additionalProperties: true
         example:
@@ -189,25 +194,20 @@ components:
           action: read
           object: id123
           type: dog
-      - type: boolean
-      - type: string
-      - type: array
-        items: {}
-      - type: number
     result:
       description: The base or virtual document referred to by the URL path. If the path is undefined, this key will be omitted.
       oneOf:
+      - type: boolean
+      - type: string
+      - type: number
+      - type: array
+        items: {}
       - type: object
         additionalProperties: true
         example:
           allow: true
           user_is_admin: true
           user_is_granted: []
-      - type: boolean
-      - type: string
-      - type: array
-        items: {}
-      - type: number
     provenance:
       type: object
       description: Provenance information can be requested on individual API calls and are returned inline with the API response. To obtain provenance information on an API call, specify the `provenance=true` query parameter when executing the API call.                  
