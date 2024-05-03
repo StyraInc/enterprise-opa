@@ -423,7 +423,7 @@ components:
                 additionalProperties:
                   type: object
                   properties:
-                    code:
+                    http_status_code:
                       type: string
                       example: "200"
                   oneOf:
