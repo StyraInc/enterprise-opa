@@ -13,6 +13,37 @@ servers:
 - url: http://localhost:8181
   description: Local development server
 paths:
+  /:
+    post:
+      parameters:
+      - $ref: "#/components/parameters/GzipContentEncoding"
+      - $ref: "#/components/parameters/GzipAcceptEncoding"
+      - $ref: "#/components/parameters/pretty"
+      - $ref: "#/components/parameters/provenance"
+      - $ref: "#/components/parameters/explain"
+      - $ref: "#/components/parameters/metrics"
+      - $ref: "#/components/parameters/instrument"
+      - $ref: "#/components/parameters/strict-builtin-errors"
+      summary: Execute the default decision with given an input
+      operationId: executeDefaultPolicyWithInput
+      x-speakeasy-usage-example: true
+      requestBody:
+        description: The input document
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/input"
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/result"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /v1/data/{path}:
     get:
       parameters:
