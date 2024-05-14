@@ -16,14 +16,7 @@ paths:
   /:
     post:
       parameters:
-      - $ref: "#/components/parameters/GzipContentEncoding"
-      - $ref: "#/components/parameters/GzipAcceptEncoding"
       - $ref: "#/components/parameters/pretty"
-      - $ref: "#/components/parameters/provenance"
-      - $ref: "#/components/parameters/explain"
-      - $ref: "#/components/parameters/metrics"
-      - $ref: "#/components/parameters/instrument"
-      - $ref: "#/components/parameters/strict-builtin-errors"
       summary: Execute the default decision with given an input
       operationId: executeDefaultPolicyWithInput
       x-speakeasy-usage-example: true
