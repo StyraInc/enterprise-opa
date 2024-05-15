@@ -17,7 +17,8 @@ paths:
     post:
       parameters:
       - $ref: "#/components/parameters/pretty"
-      summary: Execute the default decision with given an input
+      - $ref: "#/components/parameters/GzipAcceptEncoding"
+      summary: Execute the default decision  given an input
       operationId: executeDefaultPolicyWithInput
       x-speakeasy-usage-example: true
       requestBody:
@@ -29,12 +30,11 @@ paths:
               $ref: "#/components/schemas/input"
       responses:
         "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/result"
+          $ref: "#/components/responses/SuccessfulDefaultPolicyEvaluation"
         "400":
           $ref: "#/components/responses/BadRequest"
+        "404":
+          $ref: "#/components/responses/PolicyNotFound"
         "500":
           $ref: "#/components/responses/ServerError"
   /v1/data/{path}:
@@ -282,6 +282,24 @@ components:
       properties:
         code: {type: string}
   responses:
+    SuccessfulDefaultPolicyEvaluation:
+      description: >
+        Success.
+
+        Evaluating the default policy has the same response behavior as a successful policy evaluation, but with only the result as the response.
+      headers:
+        "Content-Encoding":
+          $ref: "#/components/headers/GzipContentEncoding"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/result"
+    PolicyNotFound:
+      description: The policy at the specified location is undefined.
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ClientError"
     SuccessfulPolicyEvaluation:
       description: >
         Success.
