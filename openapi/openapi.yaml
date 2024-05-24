@@ -111,12 +111,8 @@ paths:
           application/json:
             schema:
               type: object
-              required: [inputs]
-              properties:
-                inputs:
-                  type: object
-                  additionalProperties:
-                    $ref: "#/components/schemas/input"
+              additionalProperties:
+                $ref: "#/components/schemas/input"
       responses:
         "200": { $ref: "#/components/responses/BatchSuccessfulPolicyEvaluation" }
         "207": { $ref: "#/components/responses/BatchMixedResults" }
@@ -400,10 +396,6 @@ components:
                 example: "1bef6b7d-cd13-4890-bfe1-fd2e8de32189"
               responses:
                 type: object
-                properties:
-                  decision_id:
-                    type: string
-                    example: "b84cf736-213c-4932-a8e4-bb5c648f1b4d"
                 additionalProperties:
                   $ref: "#/components/schemas/SuccessfulPolicyResponse"
     BatchMixedResults:
