@@ -120,7 +120,7 @@ paths:
       responses:
         "200": { $ref: "#/components/responses/BatchSuccessfulPolicyEvaluation" }
         "207": { $ref: "#/components/responses/BatchMixedResults" }
-        "400": { $ref: "#/components/responses/BatchBadRequest" }
+        "400": { $ref: "#/components/responses/BadRequest" }
         "500": { $ref: "#/components/responses/BatchServerError" }
   /health:
     get:
@@ -398,6 +398,10 @@ components:
               batch_decision_id:
                 type: string
                 example: "1bef6b7d-cd13-4890-bfe1-fd2e8de32189"
+              metrics:
+                type: object
+                description: If query metrics are enabled, this field contains query performance metrics collected during the parse, compile, and evaluation steps.
+                additionalProperties: true
               responses:
                 type: object
                 additionalProperties:
@@ -414,6 +418,10 @@ components:
             properties:
               batch_decision_id:
                 type: string
+              metrics:
+                type: object
+                description: If query metrics are enabled, this field contains query performance metrics collected during the parse, compile, and evaluation steps.
+                additionalProperties: true
               responses:
                 type: object
                 additionalProperties:
@@ -425,25 +433,12 @@ components:
                   oneOf:
                   - $ref: "#/components/schemas/SuccessfulPolicyResponse"
                   - $ref: "#/components/schemas/ServerError"
-                  - $ref: "#/components/schemas/ClientError"
     BadRequest:
       description: Bad Request
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/ClientError"
-    BatchBadRequest:
-      description: >
-        Bad Request. All requests returned a 400 error.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              responses:
-                type: object
-                additionalProperties:
-                  $ref: "#/components/schemas/ClientError"
     ServerError:
       description: Server Error
       content:
