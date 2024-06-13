@@ -89,6 +89,39 @@ paths:
           $ref: "#/components/responses/BadRequest"
         "500":
           $ref: "#/components/responses/ServerError"
+  /v1/batch/data/{path}:
+    post:
+      parameters:
+      - $ref: "#/components/parameters/policyPath"
+      - $ref: "#/components/parameters/GzipContentEncoding"
+      - $ref: "#/components/parameters/GzipAcceptEncoding"
+      - $ref: "#/components/parameters/pretty"
+      - $ref: "#/components/parameters/provenance"
+      - $ref: "#/components/parameters/explain"
+      - $ref: "#/components/parameters/metrics"
+      - $ref: "#/components/parameters/instrument"
+      - $ref: "#/components/parameters/strict-builtin-errors"
+      summary: Execute a policy given a batch of inputs
+      operationId: executeBatchPolicyWithInput
+      x-speakeasy-usage-example: true
+      requestBody:
+        description: The batch of inputs
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [inputs]
+              properties:
+                inputs:
+                  type: object
+                  additionalProperties:
+                    $ref: "#/components/schemas/input"
+      responses:
+        "200": { $ref: "#/components/responses/BatchSuccessfulPolicyEvaluation" }
+        "207": { $ref: "#/components/responses/BatchMixedResults" }
+        "400": { $ref: "#/components/responses/BadRequest" }
+        "500": { $ref: "#/components/responses/BatchServerError" }
   /health:
     get:
       parameters:
@@ -275,12 +308,49 @@ components:
                   file: {type: string}
                   row: {type: integer}
                   col: {type: integer}
-    ServerError: {$ref: "#/components/schemas/ClientError"}
+    ServerError:
+      type: object
+      required: [code, message]
+      properties:
+        code: {type: string}
+        message: {type: string}
+        errors:
+          type: array
+          items:
+            type: object
+            required: [code, message]
+            properties:
+              code: {type: string}
+              message: {type: string}
+              location:
+                type: object
+                required: [file, row, col]
+                properties:
+                  file: {type: string}
+                  row: {type: integer}
+                  col: {type: integer}
+        decision_id:
+          type: string
+          example: "b84cf736-213c-4932-a8e4-bb5c648f1b4d"
     UnhealthyServer:
       type: object
       required: [error]
       properties:
         code: {type: string}
+    SuccessfulPolicyResponse:
+      type: object
+      properties:
+        result:
+          $ref: "#/components/schemas/result"
+        metrics:
+          type: object
+          description: If query metrics are enabled, this field contains query performance metrics collected during the parse, compile, and evaluation steps.
+          additionalProperties: true
+        decision_id:
+          type: string
+          description: If decision logging is enabled, this field contains a string that uniquely identifies the decision. The identifier will be included in the decision log event for this decision. Callers can use the identifier for correlation purposes.
+        provenance:
+          $ref: "#/components/schemas/provenance"
   responses:
     SuccessfulDefaultPolicyEvaluation:
       description: >
@@ -311,19 +381,58 @@ components:
       content:
         application/json:
           schema:
+            $ref: "#/components/schemas/SuccessfulPolicyResponse"
+    BatchSuccessfulPolicyEvaluation:
+      description: >
+        All batched policy executions succeeded.
+
+        The server also returns 200 if the path refers to an undefined document. In this case, responses will be empty.
+      headers:
+        "Content-Encoding":
+          $ref: "#/components/headers/GzipContentEncoding"
+      content:
+        application/json:
+          schema:
             type: object
             properties:
-              result:
-                $ref: "#/components/schemas/result"
+              batch_decision_id:
+                type: string
+                example: "1bef6b7d-cd13-4890-bfe1-fd2e8de32189"
               metrics:
                 type: object
                 description: If query metrics are enabled, this field contains query performance metrics collected during the parse, compile, and evaluation steps.
                 additionalProperties: true
-              decision_id:
+              responses:
+                type: object
+                additionalProperties:
+                  $ref: "#/components/schemas/SuccessfulPolicyResponse"
+    BatchMixedResults:
+      description: Mixed success and failures.
+      headers:
+        "Content-Encoding":
+          $ref: "#/components/headers/GzipContentEncoding"
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              batch_decision_id:
                 type: string
-                description: If decision logging is enabled, this field contains a string that uniquely identifies the decision. The identifier will be included in the decision log event for this decision. Callers can use the identifier for correlation purposes.
-              provenance:
-                $ref: "#/components/schemas/provenance"
+              metrics:
+                type: object
+                description: If query metrics are enabled, this field contains query performance metrics collected during the parse, compile, and evaluation steps.
+                additionalProperties: true
+              responses:
+                type: object
+                additionalProperties:
+                  type: object
+                  properties:
+                    http_status_code:
+                      type: string
+                      example: "200"
+                  oneOf:
+                  - $ref: "#/components/schemas/SuccessfulPolicyResponse"
+                  - $ref: "#/components/schemas/ServerError"
     BadRequest:
       description: Bad Request
       content:
@@ -336,6 +445,20 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/ServerError"
+    BatchServerError:
+      description: >
+        Server Error. All requests returned a 500 error.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              batch_decision_id:
+                type: string
+              responses:
+                type: object
+                additionalProperties:
+                  $ref: "#/components/schemas/ServerError"
     HealthyServer:
       description: OPA service is healthy. If the bundles option is specified then all configured bundles have been activated. If the plugins option is specified then all plugins are in an OK state.
       content:
