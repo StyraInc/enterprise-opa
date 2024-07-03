@@ -24,7 +24,7 @@ paths:
       requestBody:
         description: The input document
         required: true
-        content:fB
+        content:
           application/json:
             schema:
               $ref: "#/components/schemas/input"
