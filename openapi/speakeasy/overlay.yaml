@@ -1,6 +1,6 @@
 overlay: 1.0.0
 info:
-  title: Overlay to test the discriminator for the batch API
+  title: Overlay to add discriminated unions for the batch API
   version: 0.0.1
 actions:
   - target: "$.components..BatchMixedResults..responses.additionalProperties"
