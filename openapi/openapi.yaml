@@ -433,6 +433,11 @@ components:
                   oneOf:
                   - $ref: "#/components/schemas/SuccessfulPolicyResponse"
                   - $ref: "#/components/schemas/ServerError"
+                  discriminator:
+                    propertyName: http_status_code
+                    mapping:
+                      "200": "#/components/schemas/SuccessfulPolicyResponse"
+                      "500": "#/components/schemas/ServerError"
     BadRequest:
       description: Bad Request
       content:
