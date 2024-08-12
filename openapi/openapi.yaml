@@ -140,7 +140,7 @@ components:
   securitySchemes:
     bearerAuth:
       type: http
-      scheme: bearer      
+      scheme: bearer
   headers:
     GzipContentEncoding:
       description: Indicates that the response body is gzip encoded
@@ -148,7 +148,7 @@ components:
         type: string
         enum: [gzip]
   parameters:
-    policyPath:  
+    policyPath:
       name: path
       in: path
       description: The path separator is used to access values inside object and array documents. If the path indexes into an array, the server will attempt to convert the array index to an integer. If the path element cannot be converted to an integer, the server will respond with 404.
@@ -267,7 +267,7 @@ components:
           user_is_granted: []
     provenance:
       type: object
-      description: Provenance information can be requested on individual API calls and are returned inline with the API response. To obtain provenance information on an API call, specify the `provenance=true` query parameter when executing the API call.                  
+      description: Provenance information can be requested on individual API calls and are returned inline with the API response. To obtain provenance information on an API call, specify the `provenance=true` query parameter when executing the API call.
       properties:
         version:
           type: string
@@ -275,7 +275,7 @@ components:
           type: string
         build_timestamp:
           type: string
-          format: date-time 
+          format: date-time
         build_host:
           type: string
         bundles:
@@ -337,6 +337,20 @@ components:
       required: [error]
       properties:
         code: {type: string}
+    HasStatusCode:
+      type: object
+      properties:
+        http_status_code:
+          type: string
+      required: [http_status_oode]
+    SuccessfulPolicyResponseWithStatusCode:
+      allOf:
+        - $ref: '#/components/schemas/HasStatusCode'
+        - $ref: '#/components/schemas/SuccessfulPolicyResponse'
+    ServerErrorWithStatusCode:
+      allOf:
+        - $ref: '#/components/schemas/HasStatusCode'
+        - $ref: '#/components/schemas/ServerError'
     SuccessfulPolicyResponse:
       type: object
       properties:
@@ -431,13 +445,13 @@ components:
                       type: string
                       example: "200"
                   oneOf:
-                  - $ref: "#/components/schemas/SuccessfulPolicyResponse"
-                  - $ref: "#/components/schemas/ServerError"
+                  - $ref: "#/components/schemas/SuccessfulPolicyResponseWithStatusCode"
+                  - $ref: "#/components/schemas/ServerErrorWithStatusCode"
                   discriminator:
                     propertyName: http_status_code
                     mapping:
-                      "200": "#/components/schemas/SuccessfulPolicyResponse"
-                      "500": "#/components/schemas/ServerError"
+                      "200": "#/components/schemas/SuccessfulPolicyResponseWithStatusCode"
+                      "500": "#/components/schemas/ServerErrorWithStatusCode"
     BadRequest:
       description: Bad Request
       content:
