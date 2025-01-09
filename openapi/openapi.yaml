@@ -10,14 +10,14 @@ externalDocs:
   url: "https://docs.styra.com/enterprise-opa"
   x-openpolicyagent-documentation-url: "https://www.openpolicyagent.org/docs/latest/"
 servers:
-- url: http://localhost:8181
-  description: Local development server
+  - url: http://localhost:8181
+    description: Local development server
 paths:
   /:
     post:
       parameters:
-      - $ref: "#/components/parameters/pretty"
-      - $ref: "#/components/parameters/GzipAcceptEncoding"
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/GzipAcceptEncoding"
       summary: Execute the default decision  given an input
       operationId: executeDefaultPolicyWithInput
       x-speakeasy-usage-example: true
@@ -40,14 +40,14 @@ paths:
   /v1/data/{path}:
     get:
       parameters:
-      - $ref: "#/components/parameters/policyPath"
-      - $ref: "#/components/parameters/GzipAcceptEncoding"
-      - $ref: "#/components/parameters/pretty"
-      - $ref: "#/components/parameters/provenance"
-      - $ref: "#/components/parameters/explain"
-      - $ref: "#/components/parameters/metrics"
-      - $ref: "#/components/parameters/instrument"
-      - $ref: "#/components/parameters/strict-builtin-errors"
+        - $ref: "#/components/parameters/policyPath"
+        - $ref: "#/components/parameters/GzipAcceptEncoding"
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/provenance"
+        - $ref: "#/components/parameters/explain"
+        - $ref: "#/components/parameters/metrics"
+        - $ref: "#/components/parameters/instrument"
+        - $ref: "#/components/parameters/strict-builtin-errors"
       summary: Execute a policy
       operationId: executePolicy
       responses:
@@ -59,15 +59,15 @@ paths:
           $ref: "#/components/responses/ServerError"
     post:
       parameters:
-      - $ref: "#/components/parameters/policyPath"
-      - $ref: "#/components/parameters/GzipContentEncoding"
-      - $ref: "#/components/parameters/GzipAcceptEncoding"
-      - $ref: "#/components/parameters/pretty"
-      - $ref: "#/components/parameters/provenance"
-      - $ref: "#/components/parameters/explain"
-      - $ref: "#/components/parameters/metrics"
-      - $ref: "#/components/parameters/instrument"
-      - $ref: "#/components/parameters/strict-builtin-errors"
+        - $ref: "#/components/parameters/policyPath"
+        - $ref: "#/components/parameters/GzipContentEncoding"
+        - $ref: "#/components/parameters/GzipAcceptEncoding"
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/provenance"
+        - $ref: "#/components/parameters/explain"
+        - $ref: "#/components/parameters/metrics"
+        - $ref: "#/components/parameters/instrument"
+        - $ref: "#/components/parameters/strict-builtin-errors"
       summary: Execute a policy given an input
       operationId: executePolicyWithInput
       x-speakeasy-usage-example: true
@@ -92,15 +92,15 @@ paths:
   /v1/batch/data/{path}:
     post:
       parameters:
-      - $ref: "#/components/parameters/policyPath"
-      - $ref: "#/components/parameters/GzipContentEncoding"
-      - $ref: "#/components/parameters/GzipAcceptEncoding"
-      - $ref: "#/components/parameters/pretty"
-      - $ref: "#/components/parameters/provenance"
-      - $ref: "#/components/parameters/explain"
-      - $ref: "#/components/parameters/metrics"
-      - $ref: "#/components/parameters/instrument"
-      - $ref: "#/components/parameters/strict-builtin-errors"
+        - $ref: "#/components/parameters/policyPath"
+        - $ref: "#/components/parameters/GzipContentEncoding"
+        - $ref: "#/components/parameters/GzipAcceptEncoding"
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/provenance"
+        - $ref: "#/components/parameters/explain"
+        - $ref: "#/components/parameters/metrics"
+        - $ref: "#/components/parameters/instrument"
+        - $ref: "#/components/parameters/strict-builtin-errors"
       summary: Execute a policy given a batch of inputs
       operationId: executeBatchPolicyWithInput
       x-speakeasy-usage-example: true
@@ -118,16 +118,17 @@ paths:
                   additionalProperties:
                     $ref: "#/components/schemas/input"
       responses:
-        "200": { $ref: "#/components/responses/BatchSuccessfulPolicyEvaluation" }
+        "200":
+          { $ref: "#/components/responses/BatchSuccessfulPolicyEvaluation" }
         "207": { $ref: "#/components/responses/BatchMixedResults" }
         "400": { $ref: "#/components/responses/BadRequest" }
         "500": { $ref: "#/components/responses/BatchServerError" }
   /health:
     get:
       parameters:
-      - $ref: "#/components/parameters/bundles"
-      - $ref: "#/components/parameters/plugins"
-      - $ref: "#/components/parameters/exclude-plugin"
+        - $ref: "#/components/parameters/bundles"
+        - $ref: "#/components/parameters/plugins"
+        - $ref: "#/components/parameters/exclude-plugin"
       summary: Verify the server is operational
       operationId: health
       description: The health API endpoint executes a simple built-in policy query to verify that the server is operational. Optionally it can account for bundle activation as well (useful for “ready” checks at startup).
@@ -239,32 +240,32 @@ components:
     input:
       description: Arbitrary JSON used within your policies by accessing `input`
       oneOf:
-      - type: boolean
-      - type: string
-      - type: number
-      - type: array
-        items: {}
-      - type: object
-        additionalProperties: true
-        example:
-          user: alice
-          action: read
-          object: id123
-          type: dog
+        - type: boolean
+        - type: string
+        - type: number
+        - type: array
+          items: {}
+        - type: object
+          additionalProperties: true
+          example:
+            user: alice
+            action: read
+            object: id123
+            type: dog
     result:
       description: The base or virtual document referred to by the URL path. If the path is undefined, this key will be omitted.
       oneOf:
-      - type: boolean
-      - type: string
-      - type: number
-      - type: array
-        items: {}
-      - type: object
-        additionalProperties: true
-        example:
-          allow: true
-          user_is_admin: true
-          user_is_granted: []
+        - type: boolean
+        - type: string
+        - type: number
+        - type: array
+          items: {}
+        - type: object
+          additionalProperties: true
+          example:
+            allow: true
+            user_is_admin: true
+            user_is_granted: []
     provenance:
       type: object
       description: Provenance information can be requested on individual API calls and are returned inline with the API response. To obtain provenance information on an API call, specify the `provenance=true` query parameter when executing the API call.
@@ -291,44 +292,44 @@ components:
       type: object
       required: [code, message]
       properties:
-        code: {type: string}
-        message: {type: string}
+        code: { type: string }
+        message: { type: string }
         errors:
           type: array
           items:
             type: object
             required: [code, message]
             properties:
-              code: {type: string}
-              message: {type: string}
+              code: { type: string }
+              message: { type: string }
               location:
                 type: object
                 required: [file, row, col]
                 properties:
-                  file: {type: string}
-                  row: {type: integer}
-                  col: {type: integer}
+                  file: { type: string }
+                  row: { type: integer }
+                  col: { type: integer }
     ServerError:
       type: object
       required: [code, message]
       properties:
-        code: {type: string}
-        message: {type: string}
+        code: { type: string }
+        message: { type: string }
         errors:
           type: array
           items:
             type: object
             required: [code, message]
             properties:
-              code: {type: string}
-              message: {type: string}
+              code: { type: string }
+              message: { type: string }
               location:
                 type: object
                 required: [file, row, col]
                 properties:
-                  file: {type: string}
-                  row: {type: integer}
-                  col: {type: integer}
+                  file: { type: string }
+                  row: { type: integer }
+                  col: { type: integer }
         decision_id:
           type: string
           example: "b84cf736-213c-4932-a8e4-bb5c648f1b4d"
@@ -336,7 +337,7 @@ components:
       type: object
       required: [error]
       properties:
-        code: {type: string}
+        code: { type: string }
     HasStatusCode:
       type: object
       properties:
@@ -345,12 +346,12 @@ components:
       required: [http_status_oode]
     SuccessfulPolicyResponseWithStatusCode:
       allOf:
-        - $ref: '#/components/schemas/HasStatusCode'
-        - $ref: '#/components/schemas/SuccessfulPolicyResponse'
+        - $ref: "#/components/schemas/HasStatusCode"
+        - $ref: "#/components/schemas/SuccessfulPolicyResponse"
     ServerErrorWithStatusCode:
       allOf:
-        - $ref: '#/components/schemas/HasStatusCode'
-        - $ref: '#/components/schemas/ServerError'
+        - $ref: "#/components/schemas/HasStatusCode"
+        - $ref: "#/components/schemas/ServerError"
     SuccessfulPolicyResponse:
       type: object
       properties:
@@ -445,8 +446,8 @@ components:
                       type: string
                       example: "200"
                   oneOf:
-                  - $ref: "#/components/schemas/SuccessfulPolicyResponseWithStatusCode"
-                  - $ref: "#/components/schemas/ServerErrorWithStatusCode"
+                    - $ref: "#/components/schemas/SuccessfulPolicyResponseWithStatusCode"
+                    - $ref: "#/components/schemas/ServerErrorWithStatusCode"
                   discriminator:
                     propertyName: http_status_code
                     mapping:
@@ -492,6 +493,5 @@ components:
             $ref: "#/components/schemas/UnhealthyServer"
 
 security:
-- {}
-- bearerAuth: []
-
+  - {}
+  - bearerAuth: []
