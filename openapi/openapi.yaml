@@ -123,6 +123,43 @@ paths:
         "207": { $ref: "#/components/responses/BatchMixedResults" }
         "400": { $ref: "#/components/responses/BadRequest" }
         "500": { $ref: "#/components/responses/BatchServerError" }
+  /v1/compile:
+    post:
+      parameters:
+        - $ref: "#/components/parameters/GzipAcceptEncoding"
+        - $ref: "#/components/parameters/GzipContentEncoding"
+        - $ref: "#/components/parameters/pretty"
+        - $ref: "#/components/parameters/explain"
+        - $ref: "#/components/parameters/metrics"
+        - $ref: "#/components/parameters/instrument"
+      summary: Partially evaluate a query
+      operationId: compileQueryWithPartialEvaluation
+      x-speakeasy-usage-example: false
+      requestBody:
+        description: The query, input, and other settings for partial evaluation.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [query]
+              properties:
+                query:
+                  $ref: "#/components/schemas/CompileQuery"
+                options:
+                  $ref: "#/components/schemas/CompileOptions"
+                unknowns:
+                  $ref: "#/components/schemas/CompileUnknowns"
+                input:
+                  $ref: "#/components/schemas/input"
+                  description: The input document to use during partial evaluation.
+      responses:
+        "200":
+          $ref: "#/components/responses/CompileResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "500":
+          $ref: "#/components/responses/ServerError"
   /health:
     get:
       parameters:
@@ -366,6 +403,34 @@ components:
           description: If decision logging is enabled, this field contains a string that uniquely identifies the decision. The identifier will be included in the decision log event for this decision. Callers can use the identifier for correlation purposes.
         provenance:
           $ref: "#/components/schemas/provenance"
+    CompileQuery:
+      type: string
+      description: The query to partially evaluate and compile.
+    CompileOptions:
+      type: object
+      description: Additional options to use during partial evaluation. Only disableInlining option is supported.
+      additionalProperties: true
+      properties:
+        disableInlining:
+          type: array
+        targetFormat:
+          type: string
+          enum: [json_ast, sql, ucast]
+    CompileUnknowns:
+      type: array
+      description: The terms to treat as unknown during partial evaluation.
+      default: ["input"]
+    CompileResult:
+      type: object
+      description: The partially evaluated result of the query. Result will be empty if the query is never true.
+      properties:
+        result:
+          type: object
+          description: The partially evaluated result of the query.
+          additionalProperties: true
+          properties:
+            queries:
+              type: array
   responses:
     SuccessfulDefaultPolicyEvaluation:
       description: >
@@ -453,6 +518,16 @@ components:
                     mapping:
                       "200": "#/components/schemas/SuccessfulPolicyResponseWithStatusCode"
                       "500": "#/components/schemas/ServerErrorWithStatusCode"
+    CompileResponse:
+      description: The JSON AST representation of the partially evaluated query.
+      type: object
+      properties:
+        result:
+          $ref: "#/components/schemas/CompileResult"
+        metrics:
+          type: object
+          description: If query metrics are enabled, this field contains query performance metrics collected during the parse, compile, and evaluation steps.
+          additionalProperties: true
     BadRequest:
       description: Bad Request
       content:
