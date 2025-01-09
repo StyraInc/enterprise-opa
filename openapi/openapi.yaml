@@ -155,7 +155,7 @@ paths:
                   description: The input document to use during partial evaluation.
       responses:
         "200":
-          $ref: "#/components/responses/HealthyServer"
+          $ref: "#/components/responses/CompileResponse"
         "400":
           $ref: "#/components/responses/BadRequest"
         "500":
@@ -409,10 +409,28 @@ components:
     CompileOptions:
       type: object
       description: Additional options to use during partial evaluation. Only disableInlining option is supported.
+      additionalProperties: true
+      properties:
+        disableInlining:
+          type: array
+        targetFormat:
+          type: string
+          enum: [json_ast, sql, ucast]
     CompileUnknowns:
       type: array
       description: The terms to treat as unknown during partial evaluation.
       default: ["input"]
+    CompileResult:
+      type: object
+      description: The partially evaluated result of the query. Result will be empty if the query is never true.
+      properties:
+        result:
+          type: object
+          description: The partially evaluated result of the query.
+          additionalProperties: true
+          properties:
+            queries:
+              type: array
   responses:
     SuccessfulDefaultPolicyEvaluation:
       description: >
@@ -500,6 +518,16 @@ components:
                     mapping:
                       "200": "#/components/schemas/SuccessfulPolicyResponseWithStatusCode"
                       "500": "#/components/schemas/ServerErrorWithStatusCode"
+    CompileResponse:
+      description: The JSON AST representation of the partially evaluated query.
+      type: object
+      properties:
+        result:
+          $ref: "#/components/schemas/CompileResult"
+        metrics:
+          type: object
+          description: If query metrics are enabled, this field contains query performance metrics collected during the parse, compile, and evaluation steps.
+          additionalProperties: true
     BadRequest:
       description: Bad Request
       content:
