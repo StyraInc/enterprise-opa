@@ -155,7 +155,17 @@ paths:
                   description: The input document to use during partial evaluation.
       responses:
         "200":
-          $ref: "#/components/responses/CompileResponse"
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CompileResultJSON"
+            application/vnd.styra.ucast+json:
+              schema:
+                $ref: "#/components/schemas/CompileResultUCAST"
+            application/vnd.styra.sql+json:
+              schema:
+                $ref: "#/components/schemas/CompileResultSQL"
         "400":
           $ref: "#/components/responses/BadRequest"
         "500":
@@ -380,15 +390,17 @@ components:
           example: "b84cf736-213c-4932-a8e4-bb5c648f1b4d"
     UnhealthyServer:
       type: object
-      required: [error]
+      required: [code]
       properties:
         code: { type: string }
+        errors: { type: array }
+        message: { type: string }
     HasStatusCode:
       type: object
       properties:
         http_status_code:
           type: string
-      required: [http_status_oode]
+      required: [http_status_code]
     SuccessfulPolicyResponseWithStatusCode:
       allOf:
         - $ref: "#/components/schemas/HasStatusCode"
@@ -549,36 +561,6 @@ components:
                     mapping:
                       "200": "#/components/schemas/SuccessfulPolicyResponseWithStatusCode"
                       "500": "#/components/schemas/ServerErrorWithStatusCode"
-    CompileResponse:
-      description: The JSON AST representation of the partially evaluated query.
-      content:
-        application/json:
-          type: object
-          properties:
-            result:
-              $ref: "#/components/schemas/CompileResultJSON"
-            metrics:
-              type: object
-              description: If query metrics are enabled, this field contains query performance metrics collected during the parse, compile, and evaluation steps.
-              additionalProperties: true
-        application/vnd.styra.ucast+json:
-          type: object
-          properties:
-            result:
-              $ref: "#/components/schemas/CompileResultUCAST"
-            metrics:
-              type: object
-              description: If query metrics are enabled, this field contains query performance metrics collected during the parse, compile, and evaluation steps.
-              additionalProperties: true
-        application/vnd.styra.sql+json:
-          type: object
-          properties:
-            result:
-              $ref: "#/components/schemas/CompileResultSQL"
-            metrics:
-              type: object
-              description: If query metrics are enabled, this field contains query performance metrics collected during the parse, compile, and evaluation steps.
-              additionalProperties: true
     BadRequest:
       description: Bad Request
       content:
