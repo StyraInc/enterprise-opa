@@ -185,6 +185,14 @@ components:
       schema:
         type: string
         enum: [gzip]
+    CompileMIMEType:
+      description: MIME type for selecting /v1/compile API response format
+      schema:
+        type: string
+        enum:
+          - application/json
+          - application/vnd.styra.ucast+json
+          - application/vnd.styra.sql+json
   parameters:
     policyPath:
       name: path
@@ -413,14 +421,13 @@ components:
       properties:
         disableInlining:
           type: array
-        targetFormat:
-          type: string
-          enum: [json_ast, sql, ucast]
+        targetSQLTableMappings:
+          type: object
     CompileUnknowns:
       type: array
       description: The terms to treat as unknown during partial evaluation.
       default: ["input"]
-    CompileResult:
+    CompileResultJSON:
       type: object
       description: The partially evaluated result of the query. Result will be empty if the query is never true.
       properties:
@@ -431,6 +438,30 @@ components:
           properties:
             queries:
               type: array
+    CompileResultUCAST:
+      type: object
+      description: The partially evaluated result of the query, in UCAST format. Result will be empty if the query is never true.
+      properties:
+        result:
+          type: object
+          description: The partially evaluated result of the query as UCAST.
+          additionalProperties: true
+          properties:
+            queries:
+              type: array
+              description: Array of UCAST JSON objects describing each query.
+    CompileResultSQL:
+      type: object
+      description: The partially evaluated result of the query, in SQL format. Result will be empty if the query is never true.
+      properties:
+        result:
+          type: object
+          description: The partially evaluated result of the query as SQL.
+          additionalProperties: true
+          properties:
+            queries:
+              type: array
+              description: Array of strings representing the SQL equivalent of each query.
   responses:
     SuccessfulDefaultPolicyEvaluation:
       description: >
@@ -520,14 +551,34 @@ components:
                       "500": "#/components/schemas/ServerErrorWithStatusCode"
     CompileResponse:
       description: The JSON AST representation of the partially evaluated query.
-      type: object
-      properties:
-        result:
-          $ref: "#/components/schemas/CompileResult"
-        metrics:
+      content:
+        application/json:
           type: object
-          description: If query metrics are enabled, this field contains query performance metrics collected during the parse, compile, and evaluation steps.
-          additionalProperties: true
+          properties:
+            result:
+              $ref: "#/components/schemas/CompileResultJSON"
+            metrics:
+              type: object
+              description: If query metrics are enabled, this field contains query performance metrics collected during the parse, compile, and evaluation steps.
+              additionalProperties: true
+        application/vnd.styra.ucast+json:
+          type: object
+          properties:
+            result:
+              $ref: "#/components/schemas/CompileResultUCAST"
+            metrics:
+              type: object
+              description: If query metrics are enabled, this field contains query performance metrics collected during the parse, compile, and evaluation steps.
+              additionalProperties: true
+        application/vnd.styra.sql+json:
+          type: object
+          properties:
+            result:
+              $ref: "#/components/schemas/CompileResultSQL"
+            metrics:
+              type: object
+              description: If query metrics are enabled, this field contains query performance metrics collected during the parse, compile, and evaluation steps.
+              additionalProperties: true
     BadRequest:
       description: Bad Request
       content:
