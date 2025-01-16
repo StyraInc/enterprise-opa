@@ -433,6 +433,7 @@ components:
       properties:
         disableInlining:
           type: array
+        dialect: string
         targetSQLTableMappings:
           type: object
     CompileUnknowns:
