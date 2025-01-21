@@ -1,4 +1,6 @@
-SHELL=/bin/env bash
+ORIGINAL_DIR = $(shell pwd)
+PROTOC_PATH ?= $(shell `which protoc`)
+PATH := $(PATH):$(PROTOC_PATH)
 
 build: grpcpush
 
@@ -45,9 +47,9 @@ install:
 
 .PHONY: grpc-gen-go
 grpc-gen-go:
-	pushd ../../proto && \
-	buf generate && \
-	popd
+	cd ../../proto && \
+	buf generate;
+	cd ${ORIGINAL_DIR}
 
 .PHONY: clean
 clean:
