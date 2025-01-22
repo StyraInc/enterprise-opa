@@ -428,17 +428,30 @@ components:
       description: The query to partially evaluate and compile.
     CompileOptions:
       type: object
-      description: Additional options to use during partial evaluation. Only disableInlining option is supported.
+      description: Additional options to use during partial evaluation. Only the disableInlining option is currently supported in OPA. Enterprise OPA may support additional options.
       additionalProperties: true
       properties:
         disableInlining:
           type: array
-        dialect: string
+        targetDialects:
+          type: array
+          description: The output targets for partial evaluation. Different targets will have different constraints. Populating this parameter will override whatever target (if any) was selected in request's Accept header.
+          items:
+            type: string
+            enum:
+              - ucast
+              - ucast+prisma
+              - ucast+linq
+              - sql
+              - sql+mysql
+              - sql+postgres
         targetSQLTableMappings:
           type: object
     CompileUnknowns:
       type: array
       description: The terms to treat as unknown during partial evaluation.
+      items:
+        type: string
       default: ["input"]
     CompileResultJSON:
       type: object
