@@ -1,4 +1,4 @@
-module github.com/styrainc/enterprise-opa/examples/grpc
+module github.com/styrainc/enterprise-opa-grpc-example
 
 go 1.22
 
