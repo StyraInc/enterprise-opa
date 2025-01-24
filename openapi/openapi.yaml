@@ -160,10 +160,31 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CompileResultJSON"
-            application/vnd.styra.ucast+json:
+            application/vnd.styra.multitarget+json:
+              schema:
+                $ref: "#/components/schemas/CompileResultMultitarget"
+            application/vnd.styra.ucast.all+json:
               schema:
                 $ref: "#/components/schemas/CompileResultUCAST"
-            application/vnd.styra.sql+json:
+            application/vnd.styra.ucast.minimal+json:
+              schema:
+                $ref: "#/components/schemas/CompileResultUCAST"
+            application/vnd.styra.ucast.prisma+json:
+              schema:
+                $ref: "#/components/schemas/CompileResultUCAST"
+            application/vnd.styra.ucast.linq+json:
+              schema:
+                $ref: "#/components/schemas/CompileResultUCAST"
+            application/vnd.styra.ucast.+json:
+              schema:
+                $ref: "#/components/schemas/CompileResultUCAST"
+            application/vnd.styra.sql.mssql+json:
+              schema:
+                $ref: "#/components/schemas/CompileResultSQL"
+            application/vnd.styra.sql.mysql+json:
+              schema:
+                $ref: "#/components/schemas/CompileResultSQL"
+            application/vnd.styra.sql.postgres+json:
               schema:
                 $ref: "#/components/schemas/CompileResultSQL"
         "400":
@@ -435,14 +456,15 @@ components:
           type: array
         targetDialects:
           type: array
-          description: The output targets for partial evaluation. Different targets will have different constraints. Populating this parameter will override whatever target (if any) was selected in request's Accept header.
+          description: The output targets for partial evaluation. Different targets will have different constraints.
           items:
             type: string
             enum:
-              - ucast
+              - ucast+all
+              - ucast+minimal
               - ucast+prisma
               - ucast+linq
-              - sql
+              - sql+mssql
               - sql+mysql
               - sql+postgres
         targetSQLTableMappings:
@@ -464,6 +486,8 @@ components:
           properties:
             queries:
               type: array
+            support:
+              type: object
     CompileResultUCAST:
       type: object
       description: The partially evaluated result of the query, in UCAST format. Result will be empty if the query is never true.
@@ -476,6 +500,8 @@ components:
             queries:
               type: array
               description: Array of UCAST JSON objects describing each query.
+            support:
+              type: object
     CompileResultSQL:
       type: object
       description: The partially evaluated result of the query, in SQL format. Result will be empty if the query is never true.
@@ -488,6 +514,64 @@ components:
             queries:
               type: array
               description: Array of strings representing the SQL equivalent of each query.
+            support:
+              type: object
+    CompileResultMultitarget:
+      type: object
+      description: The partially evaluated result of the query, for each target dialect. Result will be empty if the query is never true.
+      properties:
+        result:
+          type: object
+          description: The partially evaluated result of the query in each target dialect.
+          additionalProperties: true
+          properties:
+            targets:
+              type: object
+              properties:
+                ucastAll:
+                  type: object
+                  properties:
+                    queries:
+                      type: array
+                      description: Array of UCAST JSON objects describing each query.
+                ucastMinimal:
+                  type: object
+                  properties:
+                    queries:
+                      type: array
+                      description: Array of UCAST JSON objects describing each query.
+                ucastPrisma:
+                  type: object
+                  properties:
+                    queries:
+                      type: array
+                      description: Array of UCAST JSON objects describing each query.
+                ucastLINQ:
+                  type: object
+                  properties:
+                    queries:
+                      type: array
+                      description: Array of UCAST JSON objects describing each query.
+                sqlMSSQL:
+                  type: object
+                  properties:
+                    queries:
+                      type: array
+                      description: Array of strings representing the SQL equivalent of each query.
+                sqlMySQL:
+                  type: object
+                  properties:
+                    queries:
+                      type: array
+                      description: Array of strings representing the SQL equivalent of each query.
+                sqlPostgres:
+                  type: object
+                  properties:
+                    queries:
+                      type: array
+                      description: Array of strings representing the SQL equivalent of each query.
+            support:
+              type: object
   responses:
     SuccessfulDefaultPolicyEvaluation:
       description: >
