@@ -517,43 +517,43 @@ components:
                   properties:
                     query:
                       type: object
-                      description: UCAST JSON object describing the query.
+                      description: UCAST JSON object describing the conditions under which the query is true.
                 ucastMinimal:
                   type: object
                   properties:
                     query:
                       type: object
-                      description: UCAST JSON object describing the query.
+                      description: UCAST JSON object describing the conditions under which the query is true.
                 ucastPrisma:
                   type: object
                   properties:
                     query:
                       type: object
-                      description: UCAST JSON object describing the query.
+                      description: UCAST JSON object describing the conditions under which the query is true.
                 ucastLINQ:
                   type: object
                   properties:
                     query:
                       type: object
-                      description: UCAST JSON object describing the query.
+                      description: UCAST JSON object describing the conditions under which the query is true.
                 sqlMSSQL:
                   type: object
                   properties:
                     query:
                       type: string
-                      description: String representing the SQL equivalent of the query.
+                      description: String representing the SQL equivalent of the conditions under which the query is true.
                 sqlMySQL:
                   type: object
                   properties:
                     query:
                       type: string
-                      description: String representing the SQL equivalent of the query.
+                      description: String representing the SQL equivalent of the conditions under which the query is true.
                 sqlPostgres:
                   type: object
                   properties:
                     query:
                       type: string
-                      description: String representing the SQL equivalent of the query.
+                      description: String representing the SQL equivalent of the conditions under which the query is true
   responses:
     SuccessfulDefaultPolicyEvaluation:
       description: >
