@@ -163,22 +163,10 @@ paths:
             application/vnd.styra.multitarget+json:
               schema:
                 $ref: "#/components/schemas/CompileResultMultitarget"
-            application/vnd.styra.ucast.all+json:
+            application/vnd.styra.ucast.*+json: # all, minimal, linq, prisma
               schema:
                 $ref: "#/components/schemas/CompileResultUCAST"
-            application/vnd.styra.ucast.minimal+json:
-              schema:
-                $ref: "#/components/schemas/CompileResultUCAST"
-            application/vnd.styra.ucast.prisma+json:
-              schema:
-                $ref: "#/components/schemas/CompileResultUCAST"
-            application/vnd.styra.ucast.linq+json:
-              schema:
-                $ref: "#/components/schemas/CompileResultUCAST"
-            application/vnd.styra.ucast.+json:
-              schema:
-                $ref: "#/components/schemas/CompileResultUCAST"
-            application/vnd.styra.sql.mssql+json:
+            application/vnd.styra.sql.sqlserver+json:
               schema:
                 $ref: "#/components/schemas/CompileResultSQL"
             application/vnd.styra.sql.mysql+json:
