@@ -512,25 +512,7 @@ components:
             targets:
               type: object
               properties:
-                ucastAll:
-                  type: object
-                  properties:
-                    query:
-                      type: object
-                      description: UCAST JSON object describing the conditions under which the query is true.
-                ucastMinimal:
-                  type: object
-                  properties:
-                    query:
-                      type: object
-                      description: UCAST JSON object describing the conditions under which the query is true.
-                ucastPrisma:
-                  type: object
-                  properties:
-                    query:
-                      type: object
-                      description: UCAST JSON object describing the conditions under which the query is true.
-                ucastLINQ:
+                ucast:
                   type: object
                   properties:
                     query:
