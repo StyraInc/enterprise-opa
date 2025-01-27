@@ -488,8 +488,6 @@ components:
             queries:
               type: array
               description: Array of UCAST JSON objects describing each query.
-            support:
-              type: object
     CompileResultSQL:
       type: object
       description: The partially evaluated result of the query, in SQL format. Result will be empty if the query is never true.
@@ -502,8 +500,6 @@ components:
             queries:
               type: array
               description: Array of strings representing the SQL equivalent of each query.
-            support:
-              type: object
     CompileResultMultitarget:
       type: object
       description: The partially evaluated result of the query, for each target dialect. Result will be empty if the query is never true.
@@ -519,47 +515,45 @@ components:
                 ucastAll:
                   type: object
                   properties:
-                    queries:
-                      type: array
-                      description: Array of UCAST JSON objects describing each query.
+                    query:
+                      type: object
+                      description: UCAST JSON object describing the query.
                 ucastMinimal:
                   type: object
                   properties:
-                    queries:
-                      type: array
-                      description: Array of UCAST JSON objects describing each query.
+                    query:
+                      type: object
+                      description: UCAST JSON object describing the query.
                 ucastPrisma:
                   type: object
                   properties:
-                    queries:
-                      type: array
-                      description: Array of UCAST JSON objects describing each query.
+                    query:
+                      type: object
+                      description: UCAST JSON object describing the query.
                 ucastLINQ:
                   type: object
                   properties:
-                    queries:
-                      type: array
-                      description: Array of UCAST JSON objects describing each query.
+                    query:
+                      type: object
+                      description: UCAST JSON object describing the query.
                 sqlMSSQL:
                   type: object
                   properties:
-                    queries:
-                      type: array
-                      description: Array of strings representing the SQL equivalent of each query.
+                    query:
+                      type: string
+                      description: String representing the SQL equivalent of the query.
                 sqlMySQL:
                   type: object
                   properties:
-                    queries:
-                      type: array
-                      description: Array of strings representing the SQL equivalent of each query.
+                    query:
+                      type: string
+                      description: String representing the SQL equivalent of the query.
                 sqlPostgres:
                   type: object
                   properties:
-                    queries:
-                      type: array
-                      description: Array of strings representing the SQL equivalent of each query.
-            support:
-              type: object
+                    query:
+                      type: string
+                      description: String representing the SQL equivalent of the query.
   responses:
     SuccessfulDefaultPolicyEvaluation:
       description: >
