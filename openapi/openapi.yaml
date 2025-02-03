@@ -534,19 +534,19 @@ components:
                     query:
                       type: object
                       description: UCAST JSON object describing the conditions under which the query is true.
-                sqlSQLServer:
+                sqlserver:
                   type: object
                   properties:
                     query:
                       type: string
                       description: String representing the SQL equivalent of the conditions under which the query is true.
-                sqlMySQL:
+                mysql:
                   type: object
                   properties:
                     query:
                       type: string
                       description: String representing the SQL equivalent of the conditions under which the query is true.
-                sqlPostgres:
+                postgres:
                   type: object
                   properties:
                     query:
