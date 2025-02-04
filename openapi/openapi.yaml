@@ -172,7 +172,7 @@ paths:
             application/vnd.styra.ucast.linq+json:
               schema:
                 $ref: "#/components/schemas/CompileResultUCAST"
-            application/vnd.styra.ucastprismajson:
+            application/vnd.styra.ucast.prisma+json:
               schema:
                 $ref: "#/components/schemas/CompileResultUCAST"
             application/vnd.styra.sql.sqlserver+json:
