@@ -594,12 +594,6 @@ components:
                 - type: array
                 - type: object
                   additionalProperties: true
-        - properties:
-            hash-sha256:
-              type: object
-        - properties:
-            lastN:
-              type: integer
   responses:
     SuccessfulDefaultPolicyEvaluation:
       description: >
