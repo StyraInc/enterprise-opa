@@ -443,6 +443,9 @@ components:
       properties:
         disableInlining:
           type: array
+          description: A list of paths to exclude from partial evaluation inlining.
+          items:
+            type: string
         targetDialects:
           type: array
           description: The output targets for partial evaluation. Different targets will have different constraints.
@@ -584,6 +587,7 @@ components:
                 - type: string
                 - type: number
                 - type: array
+                  items: {}
                 - type: object
                   additionalProperties: true
   responses:
