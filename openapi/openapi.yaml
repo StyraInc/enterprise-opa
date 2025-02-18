@@ -213,14 +213,6 @@ components:
       schema:
         type: string
         enum: [gzip]
-    CompileMIMEType:
-      description: MIME type for selecting /v1/compile API response format
-      schema:
-        type: string
-        enum:
-          - application/json
-          - application/vnd.styra.ucast+json
-          - application/vnd.styra.sql+json
   parameters:
     policyPath:
       name: path
