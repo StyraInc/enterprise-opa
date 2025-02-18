@@ -411,7 +411,7 @@ components:
       required: [code]
       properties:
         code: { type: string }
-        errors: { type: array }
+        error: { type: string }
         message: { type: string }
     HasStatusCode:
       type: object
