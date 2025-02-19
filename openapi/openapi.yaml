@@ -501,7 +501,7 @@ components:
               description: UCAST JSON object describing the conditions under which the query is true.
             masks:
               type: object
-              description: Column masking functions, where the key is the column name, and the value describes which masking function to use.
+              description: Column masking rules, where the key is the column name, and the value describes which masking function to use.
               additionalProperties:
                 $ref: "#/components/schemas/MaskingRule"
     CompileResultSQL:
