@@ -184,6 +184,9 @@ paths:
             application/vnd.styra.sql.postgresql+json:
               schema:
                 $ref: "#/components/schemas/CompileResultSQL"
+            application/vnd.styra.sql.sqlite+json:
+              schema:
+                $ref: "#/components/schemas/CompileResultSQL"
         "400":
           $ref: "#/components/responses/BadRequest"
         "500":
@@ -459,6 +462,7 @@ components:
               - sql+sqlserver
               - sql+mysql
               - sql+postgresql
+              - sql+sqlite
         targetSQLTableMappings:
           type: object
           properties:
@@ -467,6 +471,8 @@ components:
             mysql:
               type: object
             postgresql:
+              type: object
+            sqlite:
               type: object
     CompileUnknowns:
       type: array
@@ -568,6 +574,17 @@ components:
                       additionalProperties:
                         $ref: "#/components/schemas/MaskingRule"
                 postgresql:
+                  type: object
+                  properties:
+                    query:
+                      type: string
+                      description: String representing the SQL equivalent of the conditions under which the query is true
+                    masks:
+                      type: object
+                      description: Column masking functions, where the key is the column name, and the value describes which masking function to use.
+                      additionalProperties:
+                        $ref: "#/components/schemas/MaskingRule"
+                sqlite:
                   type: object
                   properties:
                     query:
