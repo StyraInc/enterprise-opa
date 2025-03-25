@@ -499,6 +499,7 @@ components:
             query:
               type: object
               description: UCAST JSON object describing the conditions under which the query is true.
+              additionalProperties: true
             masks:
               type: object
               description: Column masking rules, where the key is the column name, and the value describes which masking function to use.
