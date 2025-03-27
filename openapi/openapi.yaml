@@ -468,12 +468,16 @@ components:
           properties:
             sqlserver:
               type: object
+              additionalProperties: true
             mysql:
               type: object
+              additionalProperties: true
             postgresql:
               type: object
+              additionalProperties: true
             sqlite:
               type: object
+              additionalProperties: true
     CompileUnknowns:
       type: array
       description: The terms to treat as unknown during partial evaluation.
