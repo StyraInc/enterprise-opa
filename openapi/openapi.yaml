@@ -478,6 +478,9 @@ components:
             sqlite:
               type: object
               additionalProperties: true
+        maskRule:
+          type: string
+          description: The Rego rule to evaluate for generating column masks.
     CompileUnknowns:
       type: array
       description: The terms to treat as unknown during partial evaluation.
