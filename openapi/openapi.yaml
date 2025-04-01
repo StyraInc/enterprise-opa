@@ -555,7 +555,7 @@ components:
                       description: UCAST JSON object describing the conditions under which the query is true.
                     masks:
                       type: object
-                      description: Column masking functions, where the key is the column name, and the value describes which masking function to use.
+                      description: Column masking rules, where the first two nested keys represent the entity name and the property name, and the value describes which masking function to use.
                       additionalProperties:
                         $ref: "#/components/schemas/MaskingRule"
                 sqlserver:
@@ -566,7 +566,7 @@ components:
                       description: String representing the SQL equivalent of the conditions under which the query is true.
                     masks:
                       type: object
-                      description: Column masking functions, where the key is the column name, and the value describes which masking function to use.
+                      description: Column masking rules, where the first two nested keys represent the table name and the column name, and the value describes which masking function to use.
                       additionalProperties:
                         $ref: "#/components/schemas/MaskingRule"
                 mysql:
@@ -577,7 +577,7 @@ components:
                       description: String representing the SQL equivalent of the conditions under which the query is true.
                     masks:
                       type: object
-                      description: Column masking functions, where the key is the column name, and the value describes which masking function to use.
+                      description: Column masking rules, where the first two nested keys represent the table name and the column name, and the value describes which masking function to use.
                       additionalProperties:
                         $ref: "#/components/schemas/MaskingRule"
                 postgresql:
@@ -588,7 +588,7 @@ components:
                       description: String representing the SQL equivalent of the conditions under which the query is true
                     masks:
                       type: object
-                      description: Column masking functions, where the key is the column name, and the value describes which masking function to use.
+                      description: Column masking rules, where the first two nested keys represent the table name and the column name, and the value describes which masking function to use.
                       additionalProperties:
                         $ref: "#/components/schemas/MaskingRule"
                 sqlite:
@@ -599,22 +599,23 @@ components:
                       description: String representing the SQL equivalent of the conditions under which the query is true
                     masks:
                       type: object
-                      description: Column masking functions, where the key is the column name, and the value describes which masking function to use.
+                      description: Column masking rules, where the first two nested keys represent the table name and the column name, and the value describes which masking function to use.
                       additionalProperties:
                         $ref: "#/components/schemas/MaskingRule"
     MaskingRule:
       type: object
-      oneOf:
-        - properties:
-            replace:
-              oneOf:
-                - type: boolean
-                - type: string
-                - type: number
-                - type: array
-                  items: {}
-                - type: object
-                  additionalProperties: true
+      additionalProperties:
+        oneOf:
+          - properties:
+              replace:
+                oneOf:
+                  - type: boolean
+                  - type: string
+                  - type: number
+                  - type: array
+                    items: {}
+                  - type: object
+                    additionalProperties: true
   responses:
     SuccessfulDefaultPolicyEvaluation:
       description: >
