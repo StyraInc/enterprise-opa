@@ -123,9 +123,10 @@ paths:
         "207": { $ref: "#/components/responses/BatchMixedResults" }
         "400": { $ref: "#/components/responses/BadRequest" }
         "500": { $ref: "#/components/responses/BatchServerError" }
-  /v1/compile:
+  /v1/compile/{path}:
     post:
       parameters:
+        - $ref: "#/components/parameters/policyPath"
         - $ref: "#/components/parameters/GzipAcceptEncoding"
         - $ref: "#/components/parameters/GzipContentEncoding"
         - $ref: "#/components/parameters/pretty"
@@ -144,8 +145,6 @@ paths:
               type: object
               required: [query]
               properties:
-                query:
-                  $ref: "#/components/schemas/CompileQuery"
                 options:
                   $ref: "#/components/schemas/CompileOptions"
                 unknowns:
@@ -436,9 +435,6 @@ components:
           description: If decision logging is enabled, this field contains a string that uniquely identifies the decision. The identifier will be included in the decision log event for this decision. Callers can use the identifier for correlation purposes.
         provenance:
           $ref: "#/components/schemas/provenance"
-    CompileQuery:
-      type: string
-      description: The query to partially evaluate and compile.
     CompileOptions:
       type: object
       description: Additional options to use during partial evaluation. Only the disableInlining option is currently supported in OPA. Enterprise OPA may support additional options.
