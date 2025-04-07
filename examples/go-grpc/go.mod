@@ -8,7 +8,7 @@ replace github.com/styrainc/enterprise-opa => ../../
 require (
 	github.com/shirou/gopsutil/v3 v3.24.5
 	github.com/styrainc/enterprise-opa v0.0.0-00010101000000-000000000000
-	google.golang.org/grpc v1.71.0
+	google.golang.org/grpc v1.71.1
 	google.golang.org/protobuf v1.36.6
 )
 
