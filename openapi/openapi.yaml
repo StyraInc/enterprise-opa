@@ -127,6 +127,7 @@ paths:
     post:
       parameters:
         - $ref: "#/components/parameters/policyPath"
+        - $ref: "#/components/parameters/CompileAcceptTypes"
         - $ref: "#/components/parameters/GzipAcceptEncoding"
         - $ref: "#/components/parameters/GzipContentEncoding"
         - $ref: "#/components/parameters/pretty"
@@ -240,6 +241,24 @@ components:
       schema:
         type: string
         enum: [gzip]
+    CompileAcceptTypes:
+      name: Accept
+      description: "Indicates the server should generate the target format of data filters."
+      in: header
+      required: true
+      schema:
+        type: string
+        enum:
+          - application/json
+          - application/vnd.styra.multitarget+json
+          - application/vnd.styra.ucast.all+json
+          - application/vnd.styra.ucast.minimal+json
+          - application/vnd.styra.ucast.linq+json
+          - application/vnd.styra.ucast.prisma+json
+          - application/vnd.styra.sql.sqlserver+json
+          - application/vnd.styra.sql.mysql+json
+          - application/vnd.styra.sql.postgresql+json
+          - application/vnd.styra.sql.sqlite+json
     pretty:
       name: pretty
       description: If parameter is `true`, response will formatted for humans.
