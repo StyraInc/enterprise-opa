@@ -1,6 +1,7 @@
 module github.com/styrainc/enterprise-opa-grpc-example
 
-go 1.22
+go 1.23.0
+
 toolchain go1.24.1
 
 replace github.com/styrainc/enterprise-opa => ../../
@@ -8,7 +9,7 @@ replace github.com/styrainc/enterprise-opa => ../../
 require (
 	github.com/shirou/gopsutil/v3 v3.24.5
 	github.com/styrainc/enterprise-opa v0.0.0-00010101000000-000000000000
-	google.golang.org/grpc v1.72.0
+	google.golang.org/grpc v1.72.1
 	google.golang.org/protobuf v1.36.6
 )
 
