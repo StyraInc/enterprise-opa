@@ -1,0 +1,92 @@
+name: Smoke Test Tutorial
+
+on:
+  workflow_dispatch: {} # Allow for manual triggers
+  schedule:
+    - cron: "0 8 * * 1" # Monday, at 8:00 UTC
+
+jobs:
+  prereqs:
+    name: Prereqs
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: StyraInc/styra-init-action@main
+
+  test-cli:
+    name: Test EOPA Tutorial - Binary
+    needs:
+      - prereqs
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - name: Tune GitHub-hosted runner network
+        uses: smorimoto/tune-github-hosted-runner-network@bb252dcb5c8609a31087e7993daa086f5a1c0069 # v1.0.0
+      - name: Download latest EOPA Linux release binary
+        run: |
+          gh release download --repo StyraInc/enterprise-opa --pattern "*_Linux_x86_64" -O eopa
+          chmod +x eopa
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get trial license
+        id: trial-license
+        run: |
+          export EOPA_LICENSE_KEY=$(./eopa license trial --key-only --company "Styra, Inc." --country "N/A" --email "eopa-trial-user@styra.com" --first-name "Nope" --last-name "Nada")
+          echo "eopa-license_key=$EOPA_LICENSE_KEY" >> $GITHUB_OUTPUT
+      - name: Run binary for tutorial
+        run: |
+          ./eopa run --disable-telemetry -s https://dl.styra.com/enterprise-opa/bundle-enterprise-opa-50.tar.gz &
+          EOPA_PID=$!
+
+          # Wait until server is healthy, making sure to wait for bundle activations.
+          bash -c 'until [ "$(curl -s -o /dev/null -w "%{http_code}\n" http://localhost:8181/health?bundles)" -eq 200 ]; do echo "Waiting for service to be healthy..."; sleep 1; done; echo "Service is healthy!"'
+
+          echo "Querying metrics..."
+          # Run metrics query, like in the tutorial. Check for allocation size in output.
+          curl -s 'http://localhost:8181/metrics/alloc_bytes?pretty=true' | grep -Eq '[0-9]+(\.[0-9]+)?[k|M|G]B'
+
+          set +e
+          echo "Stopping eopa binary..."
+          kill $EOPA_PID
+          set -e
+        env:
+          EOPA_LICENSE_KEY: ${{ steps.trial-license.outputs.eopa-license-key }}
+
+  test-container:
+    name: Test EOPA Tutorial - Container
+    needs:
+      - prereqs
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - name: Tune GitHub-hosted runner network
+        uses: smorimoto/tune-github-hosted-runner-network@bb252dcb5c8609a31087e7993daa086f5a1c0069 # v1.0.0
+      - name: Download latest EOPA Linux release binary
+        run: |
+          gh release download --repo StyraInc/enterprise-opa --pattern "*_Linux_x86_64" -O eopa
+          chmod +x eopa
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get trial license
+        id: trial-license
+        run: |
+          export EOPA_LICENSE_KEY=$(./eopa license trial --key-only --company "Styra, Inc." --country "N/A" --email "eopa-trial-user@styra.com" --first-name "Nope" --last-name "Nada")
+          echo "eopa-license_key=$EOPA_LICENSE_KEY" >> $GITHUB_OUTPUT
+      - name: Run container for tutorial
+        run: |
+          docker pull ghcr.io/styrainc/enterprise-opa:latest
+          CONTAINER_ID=$(docker run --rm -d -p 8181:8181 -e EOPA_LICENSE_KEY -v ${PWD}:/work -w /work --user $(id -u):$(id -g) ghcr.io/styrainc/enterprise-opa:latest run -s --disable-telemetry --log-level=debug --addr=0.0.0.0:8181 https://dl.styra.com/enterprise-opa/bundle-enterprise-opa-50.tar.gz)
+
+          # Wait until server is healthy, making sure to wait for bundle activations.
+          bash -c 'until [ "$(curl -s -o /dev/null -w "%{http_code}\n" http://localhost:8181/health?bundles)" -eq 200 ]; do echo "Waiting for service to be healthy..."; sleep 1; done; echo "Service is healthy!"'
+
+          echo "Querying metrics..."
+          curl -s 'http://localhost:8181/metrics/alloc_bytes?pretty=true' | grep -Eq '[0-9]+(\.[0-9]+)?[k|M|G]B'
+
+          set +e
+          echo "Stopping container..."
+          docker stop $CONTAINER_ID
+          set -e
+        env:
+          EOPA_LICENSE_KEY: ${{ steps.trial-license.outputs.eopa-license-key }}
